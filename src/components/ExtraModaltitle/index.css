@@ -1,0 +1,22 @@
+.extraModalTitle{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 40px;
+    padding-right: 56px;
+}
+
+.leftTitle{
+    width: 50%;
+    line-height: 40px;
+}
+
+.rightTitle{
+    width: 50%;
+    line-height: 40px;
+}
