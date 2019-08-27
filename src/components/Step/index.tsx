@@ -12,7 +12,7 @@ interface ISettingProps {
     backPath?:string;
 }
 const ref:any = React.createRef();
-const Step: React.SFC<ISettingProps> = (props : ISettingProps) => {
+const Step: React.FC<ISettingProps> = (props : ISettingProps) => {
     // 根据路由初始化步骤
     const currentStepRoute = props.location.pathname.slice(1)
     const currentStepNum = props.steps.filter(v => currentStepRoute.indexOf(v.path) > -1)[0].currentStep

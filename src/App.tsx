@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
         <Route path="/" exact={true} component={Add}/>
-        <Route path="/step/:path" component={Step}/>
+        <Route path="/:path" component={Step}/>
     </Router>
   );
 }

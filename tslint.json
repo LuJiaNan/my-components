@@ -13,6 +13,7 @@
     "member-access": [true, "no-public"],
     "ordered-imports": false,
     "no-console": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "prefer-const": false
   }
 }

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import {withRouter} from "react-router-dom"
 import Step from '../components/Step/index'
 import FirstStep from './firstStep'
@@ -23,14 +22,12 @@ const steps = [{
 
 const Index = (props:any) => {
   return (    
-    <Step 
-      steps={steps} 
-      // backPath={'/'}
-      showCancel={true}
-      cancelText="点击取消"
-      // finishText="关闭"
-      {...props}
-    />
+    Step({
+      steps,
+      showCancel:true,
+      cancelText:"点击取消",
+      ...props
+    })
   )
 }
 
