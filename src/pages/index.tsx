@@ -1,7 +1,9 @@
 import * as React from 'react'
 import {withRouter} from "react-router-dom"
-import { Button, Table } from 'antd'
-import Ellipsis from '../components/Ellipsis/index'
+import { Table } from 'antd'
+import Ellipsis from '../components/Ellipsis'
+import Button from '../components/Button'
+import ButtonGroups from '../components/ButtonGroups'
 
 export interface Props {
     history:any;
@@ -51,9 +53,22 @@ class Index extends React.Component<Props, State>{
     constructor(props:any){
       super(props)
     }
+    handleClick = (type:string,key:string) => {
+      // console.log(type)
+      console.log(key)
+    }
     render(){
         return (
             <React.Fragment>
+                <ButtonGroups handleClick={this.handleClick.bind(this, 'type')} viewMode="icon" showSize={2} mode="ButtonMenu">
+                    <Button permission={true} actionkey="aa">aa</Button>
+                    <Button permission={false} actionkey="cc" confirm="cccccccccccccccc" tip="ccccccccccccccccc">cc</Button>
+                    <Button permission={true} actionkey="bb" icon="apple">bb</Button>
+                    <Button permission={true} actionkey="dd">dd</Button>
+                    <Button permission={true} actionkey="ee">ee</Button>
+                    <Button permission={true} actionkey="ff" confirm="ffffffffffffffff" tip="fffffffffffffff">ff</Button>
+                    <Button permission={true} actionkey="gg" disabled={true}>gg</Button>
+                </ButtonGroups>
                 <Table dataSource={dataSource} columns={columns} />
                 <Button onClick={()=> this.props.history.push('/first')}>添加</Button>
             </React.Fragment>

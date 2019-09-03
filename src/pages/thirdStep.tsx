@@ -8,6 +8,9 @@ class Index extends React.Component<ISettingProps>{
   constructor(props:any){
     super(props)
   }
+  submit = () => {
+    console.log('111')
+  }
   onSubmit = () => {
     if(true){
       console.log('commit')
