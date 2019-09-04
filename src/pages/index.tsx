@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {withRouter} from "react-router-dom"
-import { Table } from 'antd'
+import { Table, Skeleton } from 'antd'
 import Ellipsis from '../components/Ellipsis'
 import Button from '../components/Button'
 import ButtonGroups from '../components/ButtonGroups'
@@ -71,6 +71,27 @@ class Index extends React.Component<Props, State>{
                 </ButtonGroups>
                 <Table dataSource={dataSource} columns={columns} />
                 <Button onClick={()=> this.props.history.push('/first')}>添加</Button>
+                <Skeleton 
+                  active={true} 
+                  paragraph={{
+                    rows: 5,
+                    width: ['50%','60%','70%','80%','90%']
+                  }}
+                  title={true}
+                  avatar={{
+                    size: 'large',
+                    shape: 'square'
+                  }} 
+                >
+                  <div>
+                    <h4>Ant Design, a design language</h4>
+                    <p>
+                      We supply a series of design principles, practical patterns and high quality design
+                      resources (Sketch and Axure), to help people create their product prototypes
+                      beautifully and efficiently.
+                    </p>
+                  </div>
+                </Skeleton>
             </React.Fragment>
         )
     }
