@@ -1,0 +1,26 @@
+{
+  "moduleA": {
+    "Welcome to React": "Welcome to React and react-i18next",
+    "add": "add",
+    "table.name": "name",
+    "table.age": "age",
+    "table.address": "address",
+    "welcomeUser": "Hello <strong>{{name}}</strong>,Byebye <i>{{customer}}</i>.",
+    "name": "name：{{person.name}}，sex：{{person.sex}}，age：{{person.age}}",
+
+    "nesting1": "one $t(nesting2) {{number}}",
+    "nesting2": "two $t(nesting3)",
+    "nesting3": "three",
+
+    "tree": {
+      "res": "added {{something}}"
+    },
+    "array": ["a", "b", "c"]
+  },
+  "moduleB": {
+    "add": "adddddddd"
+  },
+  "moduleC": {
+    "namespace": "i am namespace"
+  }
+}
