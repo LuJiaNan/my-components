@@ -50,7 +50,17 @@ class Index extends React.Component<Props, State> {
   handleChange = (type: string) => {
     i18n.changeLanguage(type);
     // console.log(i18n.t("dbType", { returnObjects: true }));
-    console.log(i18n.t("moduleC:namespace"));
+
+    // 重写t方法且指定特定language 和 namespace
+    const dict = i18n.getFixedT('dict', 'moduleC');
+    console.log(dict('namespace'));
+
+    // 重写t方法且指定特定namespace，等价于i18n.t("moduleC:namespace")
+    const moduleC = i18n.getFixedT(null, 'moduleC');
+    console.log(moduleC('namespace'));
+
+
+    // console.log(i18n.t("moduleC:namespace"));
   };
   render() {
     const columns = [

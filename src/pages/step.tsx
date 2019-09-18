@@ -7,19 +7,16 @@ const steps = [{
     text:'第一步',
     description: '我是第一步',
     path: 'first',
-    currentStep: 1,
     component: FirstStep
   },{
     text:'第二步',
     description: '我是第二步',
     path: 'second',
-    currentStep: 2,
     component: SecondStep
   },{
     text:'第三步',
     description: '我是第三步',
     path: 'third',
-    currentStep: 3,
     component: ThirdStep
 }]
 

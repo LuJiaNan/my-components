@@ -28,9 +28,13 @@ const Step: React.FC<ISettingProps> = (props) => {
   // 根据路由初始化步骤
   props = Object.assign({}, defaultProps, props);
   const currentStepRoute = props.location.pathname.slice(1);
-  const currentStepNum = props.steps.filter(
-    v => currentStepRoute.indexOf(v.path) > -1
-  )[0].currentStep;
+
+  let currentStepNum = 0;
+  props.steps.map((v,index) => {
+    if(currentStepRoute.indexOf(v.path) > -1){
+      currentStepNum = index + 1
+    }
+  })
   const [step, goRoutes] = useState(currentStepNum);
 
   const currentIndex = step - 1;
