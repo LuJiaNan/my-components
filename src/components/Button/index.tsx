@@ -1,8 +1,6 @@
 import React from 'react'
 import { Button } from 'antd'; 
 import { ButtonProps } from 'antd/lib/button'; 
-declare const ButtonTypes: ["default", "primary", "ghost", "dashed", "danger", "link"];
-export declare type ButtonType = (typeof ButtonTypes)[number];
 
 interface MyButtonProps extends ButtonProps { 
     [propName: string]: any;
@@ -13,7 +11,6 @@ interface MyButtonProps extends ButtonProps {
     tip?:string;
     disabled?:boolean;
     icon?:string;
-    type?:ButtonType;
 } 
 
 const MyButton: React.FC<MyButtonProps> = (props : MyButtonProps) => {
