@@ -6,6 +6,7 @@ import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
 import ButtonGroups from "../components/ButtonGroups";
 import i18n from "../i18n";
+// import i18next from 'i18next';
 import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
 import { Translation } from "react-i18next";
@@ -44,11 +45,13 @@ class Index extends React.Component<Props, State> {
     // console.log(i18n.t("array", { returnObjects: true }));
   }
   handleClick = (type: string, key: string) => {
-    // console.log(type)
+    console.log(type)
     console.log(key);
   };
   handleChange = (type: string) => {
     i18n.changeLanguage(type);
+    // 修改默认namespace
+    // i18next.setDefaultNamespace('moduleC')
     // console.log(i18n.t("dbType", { returnObjects: true }));
 
     // 重写t方法且指定特定language 和 namespace
@@ -58,7 +61,6 @@ class Index extends React.Component<Props, State> {
     // 重写t方法且指定特定namespace，等价于i18n.t("moduleC:namespace")
     const moduleC = i18n.getFixedT(null, 'moduleC');
     console.log(moduleC('namespace'));
-
 
     // console.log(i18n.t("moduleC:namespace"));
   };
