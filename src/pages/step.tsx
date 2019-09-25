@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-// import Step from '../components/Step'
-import Step from "../components/ClassStep";
+import Step from '../components/Step';
+// import Step from "../components/ClassStep";
 import FirstStep from "./firstStep";
 import SecondStep from "./secondStep";
 import ThirdStep from "./thirdStep";
@@ -36,6 +36,16 @@ const Index = (props: any) => {
       // finalSubmitFunctionName="submit"
       {...props}
     />
+
+    // 函数式调用函数组件提高性能 /components/Step
+    // Step({
+    //   steps,
+    //   showCancel:true,
+    //   cancelText:"点击取消",
+    //   // showFinalLastStep:false,
+    //   // finalSubmitFunctionName:"submit",
+    //   ...props
+    // })
   );
 };
 
