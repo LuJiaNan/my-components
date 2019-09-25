@@ -46,8 +46,6 @@ const Index = (props: any) => {
     //   // finalSubmitFunctionName:"submit",
     //   ...props
     // })
-
-    
   );
 };
 
