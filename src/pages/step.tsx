@@ -37,9 +37,6 @@ const Index = (props: any) => {
       {...props}
     />
 
-
-    
-
     // 函数式调用函数组件提高性能 /components/Step
     // Step({
     //   steps,
@@ -49,6 +46,8 @@ const Index = (props: any) => {
     //   // finalSubmitFunctionName:"submit",
     //   ...props
     // })
+
+    
   );
 };
 
