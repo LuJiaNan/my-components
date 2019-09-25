@@ -15,6 +15,9 @@
     "tree": {
       "res": "added {{something}}"
     },
+    "person": {
+      "name": "react"
+    },
     "array": ["a", "b", "c"]
   }
 }

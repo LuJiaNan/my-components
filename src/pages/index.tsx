@@ -1,7 +1,7 @@
 import * as React from "react";
-import { withRouter } from "react-router-dom";
-import { Table, Skeleton, Select } from "antd";
-import { compose } from "recompose";
+// import { withRouter } from "react-router-dom";
+import { Table, Select } from "antd";
+// import { compose } from "recompose";
 import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
 import ButtonGroups from "../components/ButtonGroups";
@@ -10,6 +10,7 @@ import i18n from "../i18n";
 import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
 import { Translation } from "react-i18next";
+// import hoistStatics from 'hoist-non-react-statics';
 
 const Option = Select.Option;
 
@@ -39,6 +40,7 @@ const dataSource = [
 class Index extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
+    console.log(props);
   }
   componentDidMount() {
     console.log(i18n.t("tree", { returnObjects: true, something: "gold" }));
@@ -143,27 +145,6 @@ class Index extends React.Component<Props, State> {
         <Button onClick={() => this.props.history.push("/first")}>
           {i18n.t("add")}
         </Button>
-        <Skeleton
-          active={true}
-          paragraph={{
-            rows: 5,
-            width: ["50%", "60%", "70%", "80%", "90%"]
-          }}
-          title={true}
-          avatar={{
-            size: "large",
-            shape: "square"
-          }}
-        >
-          <div>
-            <h4>Ant Design, a design language</h4>
-            <p>
-              We supply a series of design principles, practical patterns and
-              high quality design resources (Sketch and Axure), to help people
-              create their product prototypes beautifully and efficiently.
-            </p>
-          </div>
-        </Skeleton>
         <h1>{i18n.t("Welcome to React")}</h1>
         <h2>{i18n.t("name", { person })}</h2>
         <h1>{i18n.t("aaa")}</h1>
@@ -175,6 +156,7 @@ class Index extends React.Component<Props, State> {
         {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
         <Translation ns={['moduleA', 'moduleB', 'moduleC']}>{t => <p>{t("namespace")}</p>}</Translation>
         <p>{i18n.t("namespace")}</p>
+        <p>{i18n.t("person.name")}</p>
 
         <Trans
           i18nKey="welcomeUser"
@@ -185,8 +167,9 @@ class Index extends React.Component<Props, State> {
   }
 }
 
-export default compose(
-  withTranslation(),
-  withRouter
-)(Index);
-// export default withRouter(Index)
+// export default compose(
+//   withTranslation(),
+//   withRouter
+// )(Index);
+// export default hoistStatics(withTranslation()(Index), Index);
+export default withTranslation()(Index)

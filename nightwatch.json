@@ -1,0 +1,23 @@
+{
+  "src_folders": ["tests"],
+
+  "webdriver": {
+    "start_process": true,
+    "server_path": "node_modules/.bin/chromedriver",
+    "port": 9515
+  },
+
+  "test_settings": {
+    "default": {
+      "desiredCapabilities": {
+        "browserName": "chrome",
+        "chromeOptions": {
+          "args": ["--headless", "--disable-gpu"]
+        }
+      }
+    }
+  },
+
+  "custom_commands_path": ["node_modules/nightwatch-helpers/commands"],
+  "custom_assertions_path": ["node_modules/nightwatch-helpers/assertions"]
+}
