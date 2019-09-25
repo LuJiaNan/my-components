@@ -41,5 +41,11 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "typescript": "^3.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "jest"
+    }
   }
 }
