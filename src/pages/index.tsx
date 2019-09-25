@@ -6,6 +6,7 @@ import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
 import ButtonGroups from "../components/ButtonGroups";
 import i18n from "../i18n";
+import i18next from '../i18next';
 // import i18next from 'i18next';
 import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
@@ -13,6 +14,7 @@ import { Translation } from "react-i18next";
 // import hoistStatics from 'hoist-non-react-statics';
 
 const Option = Select.Option;
+console.log(i18next.t('person.name'));
 
 export interface Props {
   history: any;
@@ -40,7 +42,6 @@ const dataSource = [
 class Index extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
-    console.log(props);
   }
   componentDidMount() {
     console.log(i18n.t("tree", { returnObjects: true, something: "gold" }));
@@ -142,7 +143,7 @@ class Index extends React.Component<Props, State> {
           </Button>
         </ButtonGroups>
         <Table dataSource={dataSource} columns={columns} />
-        <Button onClick={() => this.props.history.push("/first")}>
+        <Button onClick={() => this.props.history.push("/first")} type="primary">
           {i18n.t("add")}
         </Button>
         <h1>{i18n.t("Welcome to React")}</h1>
@@ -156,7 +157,6 @@ class Index extends React.Component<Props, State> {
         {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
         <Translation ns={['moduleA', 'moduleB', 'moduleC']}>{t => <p>{t("namespace")}</p>}</Translation>
         <p>{i18n.t("namespace")}</p>
-        <p>{i18n.t("person.name")}</p>
 
         <Trans
           i18nKey="welcomeUser"
