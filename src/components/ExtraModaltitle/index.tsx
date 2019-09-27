@@ -1,11 +1,11 @@
 import * as React from 'react'
 import './index.css'
 export interface Props {
-    text: string;
+    text?: any;
     extra?: any;
 }
 
-function Index({ text, extra }: Props) {
+function ExtraModaltitle({ text, extra }: Props) {
   return (    
     <div className="extraModalTitle">
       <div className="leftTitle">{text}</div>
@@ -14,4 +14,4 @@ function Index({ text, extra }: Props) {
   );
 }
 
-export default Index;
+export default ExtraModaltitle;

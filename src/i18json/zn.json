@@ -2,6 +2,7 @@
   "moduleA": {
     "Welcome to React": "欢迎使用React",
     "add": "添加",
+    "show": "展示",
     "table.name": "姓名",
     "table.age": "年龄",
     "table.address": "地址",

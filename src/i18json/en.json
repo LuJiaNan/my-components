@@ -2,6 +2,7 @@
   "moduleA": {
     "Welcome to React": "Welcome to React and react-i18next",
     "add": "add",
+    "show": "show",
     "table.name": "name",
     "table.age": "age",
     "table.address": "address",

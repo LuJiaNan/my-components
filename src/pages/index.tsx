@@ -1,12 +1,13 @@
 import * as React from "react";
 // import { withRouter } from "react-router-dom";
-import { Table, Select } from "antd";
+import { Table, Select, Input } from "antd";
 // import { compose } from "recompose";
 import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
 import ButtonGroups from "../components/ButtonGroups";
+import Modal from "../components/Modal";
 import i18n from "../i18n";
-import i18next from '../i18next';
+// import i18next from '../i18next';
 // import i18next from 'i18next';
 import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
@@ -14,15 +15,18 @@ import { Translation } from "react-i18next";
 // import hoistStatics from 'hoist-non-react-statics';
 
 const Option = Select.Option;
-console.log(i18next.t('person.name'));
+// console.log(i18next.t('person.name'));
 
 export interface Props {
   history: any;
 }
 
-interface State {
-  show?: boolean;
-}
+const initialState = {
+  show: false,
+  visible: false
+};
+
+type State = typeof initialState;
 
 const dataSource = [
   {
@@ -40,6 +44,7 @@ const dataSource = [
 ];
 
 class Index extends React.Component<Props, State> {
+  state: State = initialState;
   constructor(props: any) {
     super(props);
   }
@@ -48,7 +53,7 @@ class Index extends React.Component<Props, State> {
     // console.log(i18n.t("array", { returnObjects: true }));
   }
   handleClick = (type: string, key: string) => {
-    console.log(type)
+    console.log(type);
     console.log(key);
   };
   handleChange = (type: string) => {
@@ -58,12 +63,14 @@ class Index extends React.Component<Props, State> {
     // console.log(i18n.t("dbType", { returnObjects: true }));
 
     // 重写t方法且指定特定language 和 namespace
-    const dict = i18n.getFixedT('dict', 'moduleC');
-    console.log(dict('namespace'));
+    const dict = i18n.getFixedT("dict", "moduleC");
+    console.log(dict("namespace"));
 
     // 重写t方法且指定特定namespace，等价于i18n.t("moduleC:namespace")
-    const moduleC = i18n.getFixedT(null, 'moduleC');
-    console.log(moduleC('namespace'));
+    const moduleC = i18n.getFixedT(null, "moduleC");
+    console.log(moduleC("namespace"));
+
+    // Modal.confirm({})
 
     // console.log(i18n.t("moduleC:namespace"));
   };
@@ -142,9 +149,21 @@ class Index extends React.Component<Props, State> {
             gg
           </Button>
         </ButtonGroups>
+        <Modal
+          title="我是title"
+          visible={this.state.visible}
+          extra={<Input value="ddddd" />}
+          content={<div style={{ color: "blue" }}>我是content</div>}
+        />
         <Table dataSource={dataSource} columns={columns} />
-        <Button onClick={() => this.props.history.push("/first")} type="primary">
+        <Button
+          onClick={() => this.props.history.push("/first")}
+          type="primary"
+        >
           {i18n.t("add")}
+        </Button>
+        <Button onClick={() => this.setState({ visible: true })} type="primary">
+          {i18n.t("show")}
         </Button>
         <h1>{i18n.t("Welcome to React")}</h1>
         <h2>{i18n.t("name", { person })}</h2>
@@ -155,7 +174,9 @@ class Index extends React.Component<Props, State> {
         {/* 代码段内使用指定namespace */}
         <Translation ns="moduleC">{t => <p>{t("namespace")}</p>}</Translation>
         {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
-        <Translation ns={['moduleA', 'moduleB', 'moduleC']}>{t => <p>{t("namespace")}</p>}</Translation>
+        <Translation ns={["moduleA", "moduleB", "moduleC"]}>
+          {t => <p>{t("namespace")}</p>}
+        </Translation>
         <p>{i18n.t("namespace")}</p>
 
         <Trans
@@ -172,4 +193,4 @@ class Index extends React.Component<Props, State> {
 //   withRouter
 // )(Index);
 // export default hoistStatics(withTranslation()(Index), Index);
-export default withTranslation()(Index)
+export default withTranslation()(Index);
