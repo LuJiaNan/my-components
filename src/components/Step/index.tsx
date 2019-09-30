@@ -20,6 +20,13 @@ const defaultProps: ISettingProps = {
   finishText: '完成',
   showFinalLastStep: true,
   showCancel: true,
+  backPath: '/',
+  location:{
+      pathname: ''
+  },
+  history:{
+      push(){}
+  }
 };
 
 const ref: any = React.createRef();
@@ -74,7 +81,7 @@ const Step: React.FC<ISettingProps> = (props) => {
           ""
         )}
         {(step !== steps.length && props.showCancel) ? (
-          <Button onClick={() => props.history.push(props.backPath || "/")}>
+          <Button onClick={() => props.history.push(props.backPath)}>
             {props.cancelText}
           </Button>
         ) : (

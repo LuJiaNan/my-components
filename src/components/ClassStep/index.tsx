@@ -28,7 +28,14 @@ export default class Step extends Component<ISettingProps, State> {
     cancelText: "取消",
     finishText: "完成",
     showFinalLastStep: true,
-    showCancel: true
+    showCancel: true,
+    backPath: '/',
+    location:{
+        pathname: ''
+    },
+    history:{
+        push(){}
+    }
   };
 
   state: State = initialState;
@@ -113,7 +120,7 @@ export default class Step extends Component<ISettingProps, State> {
           {step !== steps.length && this.props.showCancel ? (
             <Button
               onClick={() =>
-                this.props.history.push(this.props.backPath || "/")
+                this.props.history.push(this.props.backPath)
               }
             >
               {this.props.cancelText}
