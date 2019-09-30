@@ -43,7 +43,7 @@ export default class Step extends Component<ISettingProps, State> {
   componentWillMount() {
     const currentStepRoute = this.props.location.pathname.slice(1);
 
-    let currentStepNum = 0;
+    let currentStepNum = 1;
     this.props.steps.map((v, index) => {
       if (currentStepRoute.indexOf(v.path) > -1) {
         currentStepNum = index + 1;

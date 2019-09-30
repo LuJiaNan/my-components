@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Step from '../components/Step';
-// import Step from "../components/ClassStep";
+// import Step from '../components/Step';
+import Step from "../components/ClassStep";
 import FirstStep from "./firstStep";
 import SecondStep from "./secondStep";
 import ThirdStep from "./thirdStep";
