@@ -1,11 +1,16 @@
 import * as React from "react";
 import { Modal } from "antd";
 import ExtraModaltitle from "../ExtraModaltitle";
-import { ModalProps } from 'antd/lib/modal'; 
+import { ModalProps, ModalFuncProps } from 'antd/lib/modal'; 
 
 interface MyModalProps extends ModalProps {
   [propName: string]: any;
   content?: any;
+  titile?: any;
+}
+
+interface MyModalFuncProps extends ModalFuncProps {
+  confirm?:any;
 }
 
 
@@ -15,8 +20,9 @@ const initialState = {
 
 type State = typeof initialState;
 
-export default class MyModal extends React.Component<MyModalProps, State> {
-  static defaultProps = {
+export default class MyModal extends React.Component<MyModalProps & MyModalFuncProps, State> {
+// export default class MyModal extends Modal implements MyModalProps,MyModalFuncProps{
+  defaultProps = {
     title: "弹出框",
     content: ""
   };

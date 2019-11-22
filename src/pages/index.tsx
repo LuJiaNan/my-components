@@ -15,6 +15,7 @@ import { Translation } from "react-i18next";
 // import hoistStatics from 'hoist-non-react-statics';
 
 const Option = Select.Option;
+console.dir(Modal)
 // console.log(i18next.t('person.name'));
 
 export interface Props {
@@ -70,7 +71,12 @@ class Index extends React.Component<Props, State> {
     const moduleC = i18n.getFixedT(null, "moduleC");
     console.log(moduleC("namespace"));
 
-    // Modal.confirm({})
+    // Modal.confirm({
+    //   title: 'Confirm',
+    //   content: 'Bla bla ...',
+    //   okText: '确认',
+    //   cancelText: '取消',
+    // });
 
     // console.log(i18n.t("moduleC:namespace"));
   };
