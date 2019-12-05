@@ -5242,6 +5242,10 @@ moment@2.x, moment@^2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
 
+mota@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/mota/-/mota-3.5.2.tgz#f1e66816569165107820be1abba1662f61bf4cac"
+
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"

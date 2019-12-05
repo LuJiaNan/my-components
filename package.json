@@ -16,7 +16,7 @@
     "fork-ts-checker-webpack-plugin": "^1.5.0",
     "hoist-non-react-statics": "^3.3.0",
     "i18next": "^17.0.16",
-
+    "mota": "^3.5.2",
     "react": "^16.9.0",
     "react-app-rewired": "^2.1.3",
     "react-dom": "^16.9.0",
