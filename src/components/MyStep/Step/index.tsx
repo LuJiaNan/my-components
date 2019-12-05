@@ -1,20 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Button, Steps } from "antd";
+import StepProps from "../index";
 
-interface ISettingProps{
-  steps: any[];
-  history?: any;
-  location?: any;
-  showCancel?: boolean;
-  cancelText?: string;
-  finishText?: string;
-  backPath?: string;
-  showFinalLastStep?: boolean;
-  finalSubmitFunctionName?: string;
-}
-
-const defaultProps: ISettingProps = {
+const defaultProps: StepProps = {
   steps: [],
   cancelText: '取消',
   finishText: '完成',
@@ -31,7 +20,7 @@ const defaultProps: ISettingProps = {
 
 const ref: any = React.createRef();
 
-const Step: React.FC<ISettingProps> = (props) => {
+const Step: React.FC<StepProps> = (props) => {
   // 根据路由初始化步骤
   props = Object.assign({}, defaultProps, props);
   const currentStepRoute = props.location.pathname.slice(1);

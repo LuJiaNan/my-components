@@ -32,3 +32,11 @@
 /* .ant-modal-wrap{
   display: block!important;
 } */
+
+
+.testBtnGroup{
+  text-align: center;
+}
+.testBtnGroup .ant-btn{
+  margin-right: 30px;
+}
