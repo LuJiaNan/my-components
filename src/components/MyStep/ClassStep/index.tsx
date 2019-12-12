@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Steps } from "antd";
+import { Steps } from "antd";
 import StepProps, { defaultStepProps } from "../index";
 
 const initialState = {
@@ -43,78 +43,16 @@ export default class Step extends Component<StepProps, State> {
     });
   };
 
-  getButton = (step: number, steps: any) => {
-    const {
-      btnType,
-      showFinalLastStep,
-      showCancel,
-      history,
-      backPath,
-      cancelText,
-      finalSubmitFunctionName,
-      finishText
-    } = this.props;
-    return (
-      <React.Fragment>
-        {(() => {
-          switch (step) {
-            case 1:
-              return "";
-            case steps.length:
-              return showFinalLastStep ? (
-                <Button type={btnType} onClick={() => this.goRoutes(step - 1)}>
-                  {"上一步"}
-                </Button>
-              ) : (
-                ""
-              );
-            default:
-              return (
-                <Button type={btnType} onClick={() => this.goRoutes(step - 1)}>
-                  {"上一步"}
-                </Button>
-              );
-          }
-        })()}
-        {step !== steps.length ? (
-          <Button
-            type={btnType}
-            onClick={() => ref.current.onSubmit("handleSubmit")}
-          >
-            {"下一步"}
-          </Button>
-        ) : (
-          ""
-        )}
-        {step !== steps.length && showCancel ? (
-          <Button type={btnType} onClick={() => history.push(backPath)}>
-            {cancelText}
-          </Button>
-        ) : (
-          ""
-        )}
-        {step === steps.length ? (
-          <Button
-            type={btnType}
-            onClick={() =>
-              finalSubmitFunctionName
-                ? ref.current && ref.current[finalSubmitFunctionName]()
-                : ref.current.onSubmit("handleSubmit")
-            }
-          >
-            {finishText}
-          </Button>
-        ) : (
-          ""
-        )}
-      </React.Fragment>
-    );
+  getCurrentStep = () => {
+    return this.state.step;
   };
 
   render() {
-    const { steps, btnGroupClassName } = this.props;
-    const { step, currentIndex } = this.state;
+    const { steps } = this.props;
+    const { currentIndex } = this.state;
     const renderDom = steps[currentIndex];
+    const goRoutes = this.goRoutes;
+    const getCurrentStep = this.getCurrentStep;
     return (
       <React.Fragment>
         <Steps current={currentIndex}>
@@ -126,18 +64,12 @@ export default class Step extends Component<StepProps, State> {
             />
           ))}
         </Steps>
-
-        <renderDom.component
-          ref={ref}
-          {...this.props}
-          goRoutes={this.goRoutes}
-        />
-        <div className={btnGroupClassName}>
-          {this.getButton(step, steps)}
-          {!!(steps[step - 1] && steps[step - 1].extraButton)
-            ? steps[step - 1].extraButton()
-            : ""}
-        </div>
+        {React.createElement(renderDom.component, {
+          ...this.props,
+          ref,
+          goRoutes,
+          getCurrentStep
+        })}
       </React.Fragment>
     );
   }

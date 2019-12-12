@@ -1,45 +1,41 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Button, Steps } from "antd";
+import { Steps } from "antd";
 import StepProps from "../index";
 
 const defaultProps: StepProps = {
   steps: [],
-  cancelText: '取消',
-  finishText: '完成',
-  showFinalLastStep: true,
-  showCancel: true,
-  backPath: '/',
-  location:{
-      pathname: ''
+  location: {
+    pathname: ""
   },
-  history:{
-      push(){}
+  history: {
+    push() {}
   }
 };
 
 const ref: any = React.createRef();
 
-const Step: React.FC<StepProps> = (props) => {
+const Step: React.FC<StepProps> = props => {
   // 根据路由初始化步骤
   props = Object.assign({}, defaultProps, props);
   const currentStepRoute = props.location.pathname.slice(1);
 
   let currentStepNum = 0;
-  props.steps.map((v,index) => {
-    if(currentStepRoute.indexOf(v.path) > -1){
-      currentStepNum = index + 1
+  props.steps.map((v, index) => {
+    if (currentStepRoute.indexOf(v.path) > -1) {
+      currentStepNum = index + 1;
     }
-  })
+  });
   const [step, goRoutes] = useState(currentStepNum);
+  const getCurrentStep = () => step;
 
   const currentIndex = step - 1;
   const { steps } = props;
   const renderDom = props.steps[currentIndex];
-
   useEffect(() => {
     props.history.push(steps[currentIndex].path);
   }, [step]);
+
   return (
     <React.Fragment>
       <Steps current={currentIndex}>
@@ -52,44 +48,12 @@ const Step: React.FC<StepProps> = (props) => {
         ))}
       </Steps>
 
-      <renderDom.component ref={ref} {...props} goRoutes={goRoutes} />
-
-      <Button.Group>
-        {(() => {
-          switch (step) {
-            case 1: return ''
-            case steps.length: return props.showFinalLastStep ? <Button onClick={() => goRoutes(step - 1)}>{"上一步"}</Button> : ''
-            default: return <Button onClick={() => goRoutes(step - 1)}>{"上一步"}</Button>
-          }
-        })()}
-        {step !== steps.length ? (
-          <Button onClick={() => ref.current.onSubmit("handleSubmit")}>
-            {"下一步"}
-          </Button>
-        ) : (
-          ""
-        )}
-        {(step !== steps.length && props.showCancel) ? (
-          <Button onClick={() => props.history.push(props.backPath)}>
-            {props.cancelText}
-          </Button>
-        ) : (
-          ""
-        )}
-        {step === steps.length ? (
-          <Button
-            onClick={() =>
-              props.finalSubmitFunctionName
-                ? ref.current && ref.current[props.finalSubmitFunctionName]()
-                : ref.current.onSubmit("handleSubmit")
-            }
-          >
-            {props.finishText}
-          </Button>
-        ) : (
-          ""
-        )}
-      </Button.Group>
+      {React.createElement(renderDom.component, {
+        ...props,
+        ref,
+        goRoutes,
+        getCurrentStep
+      })}
     </React.Fragment>
   );
 };
