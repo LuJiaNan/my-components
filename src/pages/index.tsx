@@ -18,6 +18,20 @@ const Option = Select.Option;
 console.dir(Modal)
 // console.log(i18next.t('person.name'));
 
+
+// 调试generator方法打包后的代码
+function* helloGenerator() {
+  yield 1
+  yield* hello()
+  return;
+}
+function* hello() {
+  yield 2
+  return 
+}
+const h = helloGenerator();
+h.next();
+
 export interface Props {
   history: any;
 }
