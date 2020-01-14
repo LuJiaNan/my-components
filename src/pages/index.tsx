@@ -12,22 +12,22 @@ import i18n from "../i18n";
 import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
 import { Translation } from "react-i18next";
+import SuperSelect from "../components/SuperSelect";
 // import hoistStatics from 'hoist-non-react-statics';
 
 const Option = Select.Option;
-console.dir(Modal)
+console.dir(Modal);
 // console.log(i18next.t('person.name'));
-
 
 // 调试generator方法打包后的代码
 function* helloGenerator() {
-  yield 1
-  yield* hello()
+  yield 1;
+  yield* hello();
   return;
 }
 function* hello() {
-  yield 2
-  return 
+  yield 2;
+  return;
 }
 const h = helloGenerator();
 h.next();
@@ -57,6 +57,16 @@ const dataSource = [
     address: "西湖区湖底公园1号"
   }
 ];
+
+const children:any[] = [];
+
+for (let i = 0; i < 1000; i++) {
+  children.push(
+    <Option value={i + "aa"} key={i}>
+      {i}
+    </Option>
+  );
+}
 
 class Index extends React.Component<Props, State> {
   state: State = initialState;
@@ -93,6 +103,12 @@ class Index extends React.Component<Props, State> {
     // });
 
     // console.log(i18n.t("moduleC:namespace"));
+  };
+  onChange = (e: any) => {
+    console.log(e);
+  };
+  onSearch = (e: any) => {
+    console.log(e);
   };
   render() {
     const columns = [
@@ -190,7 +206,6 @@ class Index extends React.Component<Props, State> {
         <h1>{i18n.t("aaa")}</h1>
         <h1>{i18n.t("nesting1", { number: "$t(nesting2)" })}</h1>
         <h1>{i18n.t("dbType", { context: "1" })}</h1>
-
         {/* 代码段内使用指定namespace */}
         <Translation ns="moduleC">{t => <p>{t("namespace")}</p>}</Translation>
         {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
@@ -198,11 +213,22 @@ class Index extends React.Component<Props, State> {
           {t => <p>{t("namespace")}</p>}
         </Translation>
         <p>{i18n.t("namespace")}</p>
-
         <Trans
           i18nKey="welcomeUser"
           values={{ name: "tomorrow", customer: "yesterday" }}
         />
+        <br/>
+        SuperSelect:
+        <SuperSelect
+          showSearch={true}
+          allowClear={true}
+          mode="multiple"
+          onChange={this.onChange}
+          onSearch={this.onSearch}
+          style={{ width: "300px" }}
+        >
+          {children}
+        </SuperSelect>
       </React.Fragment>
     );
   }
