@@ -1,0 +1,23 @@
+{
+  "moduleA": {
+    "dbType_0": "Other",
+    "dbType_1": "Oracle",
+    "dbType_2": "Sql Server",
+    "dbType_3": "MySql",
+    "dbType": [
+      { "value": 1, "label": "Oracle" },
+      { "value": 2, "label": "SQL Server" },
+      { "value": 3, "label": "MySQL" },
+      { "value": 5, "label": "DB2" },
+      { "value": 7, "label": "南大通用(Gbase 8s 8.3)" },
+      { "value": 8, "label": "达梦(dm)" },
+      { "value": 13, "label": "Hive" },
+      { "value": 6, "label": "PostgreSQL" },
+      { "value": 14, "label": "优炫(uxdb)" },
+      { "value": 9, "label": "人大金仓(kingbase)" }
+    ]
+  },
+  "moduleC": {
+    "namespace": "i am namespace for dict"
+  }
+}

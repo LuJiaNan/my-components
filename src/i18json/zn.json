@@ -1,0 +1,25 @@
+{
+  "moduleA": {
+    "Welcome to React": "欢迎使用React",
+    "add": "添加",
+    "show": "展示",
+    "inline-component": "行内组件",
+    "table.name": "姓名",
+    "table.age": "年龄",
+    "table.address": "地址",
+    "welcomeUser": "欢迎 <strong>{{name}}</strong>,再见 <i>{{customer}}</i>.",
+    "name": "姓名：{{person.name}}，性别：{{person.sex}}，年龄：{{person.age}}",
+
+    "nesting1": "一 $t(nesting2) {{number}}",
+    "nesting2": "二 $t(nesting3)",
+    "nesting3": "三",
+
+    "tree": {
+      "res": "added {{something}}"
+    },
+    "person": {
+      "name": "react"
+    },
+    "array": ["a", "b", "c"]
+  }
+}
