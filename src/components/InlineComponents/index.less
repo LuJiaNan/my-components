@@ -1,7 +1,33 @@
-::global {
-  .inlineComponent {
-    .ant-form-item {
-      width: 50%;
+//inline formitem 均分占宽
+.inline-components(4);
+
+.inline-components(@n, @i: 1) when (@i =< @n) {
+  .inlineComponent-@{i} {
+    .inline-form {
+      width: (100% / @i);
     }
   }
+
+  .inline-components(@n, (@i + 1));
+}
+
+.inlineComponent {
+  .inline-form {
+    display: inline-flex;
+    padding: 10px;
+    margin-bottom: 0;
+  }
+  .inline-form:last-child{
+    display: block;
+  }
+  .ant-btn[type="submit"]{
+    display: block;
+  }
+  // button {
+
+  // }
+}
+
+div {
+  color: red;
 }

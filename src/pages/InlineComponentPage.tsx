@@ -1,19 +1,20 @@
 import * as React from "react";
 import InlineComponent from "../components/InlineComponents";
-import { Input, Button } from "antd";
+import { Input, Select } from "antd";
 
 class Index extends React.Component {
   render() {
     let config = {
       type: "normal",
       inlineNumber: 2,
+      // inlineNumber: [1,2],
       name: "form1",
       className: "",
-      footer: (
-        <Button type="danger" htmlType="submit">
-          提交
-        </Button>
-      ),
+      // footer: (
+      //   <Button type="danger" htmlType="submit">
+      //     提交
+      //   </Button>
+      // ),
       data: [
         {
           label: "input1",
@@ -28,10 +29,34 @@ class Index extends React.Component {
           label: "input2",
           name: "name2",
           render: Input,
-          value: "input",
+          defaultValue: "input",
           rules: [{ required: true, message: "Please input input2!" }],
           config: {
             placeholder: "i am input 2",
+          },
+        },
+        {
+          label: "select1",
+          name: "name3",
+          render: Select,
+          rules: [{ required: true, message: "Please select select1!" }],
+          config: {
+            placeholder: "i am select 1",
+            width: "150px",
+            options: [
+              {
+                label: "option1",
+                value: "option1",
+              },
+              {
+                label: "option2",
+                value: "option2",
+              },
+              {
+                label: "option3",
+                value: "option3",
+              },
+            ],
           },
         },
       ],
