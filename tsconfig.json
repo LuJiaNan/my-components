@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "baseUrl": ".",
-    "outDir": "build/dist",
+    "outDir": "./lib",
     "module": "esnext",
     "target": "es5",
     "lib": ["es6", "dom"],
@@ -22,6 +22,8 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
+    "noEmit": false,
+    "declaration": true,
   },
   "exclude": [
     "node_modules",

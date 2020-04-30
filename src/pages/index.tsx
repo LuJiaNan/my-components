@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 // import { withRouter } from "react-router-dom";
-import { Table, Select, Input } from "antd";
+import { Table, Select, Input, Form } from "antd";
 // import { compose } from "recompose";
 import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
@@ -14,11 +14,12 @@ import { Trans } from "react-i18next";
 import { withTranslation } from "react-i18next";
 import { Translation } from "react-i18next";
 // import SuperSelect from "../components/SuperSelect";
-import { MyForm } from "./form"
+import { MyForm } from "./form";
 // import hoistStatics from 'hoist-non-react-statics';
-import App from './hook'
+import App from "./hook";
 
 const Option = Select.Option;
+const Item = Form.Item;
 console.dir(Modal);
 // console.log(i18next.t('person.name'));
 
@@ -41,7 +42,7 @@ export interface Props {
 
 const initialState = {
   show: false,
-  visible: false
+  visible: false,
 };
 
 type State = typeof initialState;
@@ -51,17 +52,17 @@ const dataSource = [
     key: "1",
     name: "胡彦斌",
     age: 32,
-    address: "西湖区湖底公园1号"
+    address: "西湖区湖底公园1号",
   },
   {
     key: "2",
     name: "胡彦祖",
     age: 42,
-    address: "西湖区湖底公园1号"
-  }
+    address: "西湖区湖底公园1号",
+  },
 ];
 
-const children:any[] = [];
+const children: any[] = [];
 
 for (let i = 0; i < 1000; i++) {
   children.push(
@@ -119,25 +120,25 @@ class Index extends React.Component<Props, State> {
         title: i18n.t("table.name"),
         dataIndex: "name",
         key: "name",
-        render: (text: string) => Ellipsis({ text })
+        render: (text: string) => Ellipsis({ text }),
       },
       {
         title: i18n.t("table.age"),
         dataIndex: "age",
         key: "age",
-        render: (text: string) => Ellipsis({ text })
+        render: (text: string) => Ellipsis({ text }),
       },
       {
         title: i18n.t("table.address"),
         dataIndex: "address",
         key: "address",
-        render: (text: string) => Ellipsis({ text })
-      }
+        render: (text: string) => Ellipsis({ text }),
+      },
     ];
     const person = {
       name: "i18n",
       age: "26",
-      sex: "male"
+      sex: "male",
     };
     return (
       <React.Fragment>
@@ -146,9 +147,15 @@ class Index extends React.Component<Props, State> {
           // onChange={this.handleChange}
           style={{ width: 150, float: "right" }}
         >
-          <Option value="en" key="en">English</Option>
-          <Option value="zn" key="zn">中文</Option>
-          <Option value="dict" key="dict">字典</Option>
+          <Option value="en" key="en">
+            English
+          </Option>
+          <Option value="zn" key="zn">
+            中文
+          </Option>
+          <Option value="dict" key="dict">
+            字典
+          </Option>
         </Select>
         <ButtonGroups
           handleClick={this.handleClick.bind(this, "type")}
@@ -192,7 +199,14 @@ class Index extends React.Component<Props, State> {
           title="我是title"
           visible={this.state.visible}
           extra={<Input value="ddddd" />}
-          content={<div style={{ color: "blue" }}>我是content</div>}
+          content={
+            <Form>
+              <Item name="username" rules={[{required:true,message:"input"}]}>
+                <Input />
+              </Item>
+              <Button htmlType="submit">提交</Button>
+            </Form>
+          }
         />
         <Table dataSource={dataSource} columns={columns} />
         <Button
@@ -216,17 +230,17 @@ class Index extends React.Component<Props, State> {
         <h1>{i18n.t("nesting1", { number: "$t(nesting2)" })}</h1>
         <h1>{i18n.t("dbType", { context: "1" })}</h1>
         {/* 代码段内使用指定namespace */}
-        <Translation ns="moduleC">{t => <p>{t("namespace")}</p>}</Translation>
+        <Translation ns="moduleC">{(t) => <p>{t("namespace")}</p>}</Translation>
         {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
         <Translation ns={["moduleA", "moduleB", "moduleC"]}>
-          {t => <p>{t("namespace")}</p>}
+          {(t) => <p>{t("namespace")}</p>}
         </Translation>
         <p>{i18n.t("namespace")}</p>
         <Trans
           i18nKey="welcomeUser"
           values={{ name: "tomorrow", customer: "yesterday" }}
         />
-        <br/>
+        <br />
         SuperSelect:
         {/* <SuperSelect
           showSearch={true}
@@ -249,9 +263,9 @@ class Index extends React.Component<Props, State> {
         >
           {children}
         </Select>
-        <MyForm/>
-        <TestForm/>
-        <App/>
+        <MyForm />
+        <TestForm />
+        <App />
       </React.Fragment>
     );
   }
@@ -300,20 +314,17 @@ const TestForm = () => {
   // })
 
   useEffect(() => {
-    document.title = `You clicked ${count} times`;
+    // document.title = `You clicked ${count} times`;
+    console.log(`You clicked ${count} times`);
   });
 
   return (
     <div>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>
-        Click me
-      </button>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
     </div>
   );
-
-
-}
+};
 
 // export default compose(
 //   withTranslation(),

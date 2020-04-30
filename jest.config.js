@@ -14,4 +14,5 @@ module.exports = {
     testURL: 'http://localhost/', // 运行环境下的URl,
     // typescript 中 coverage显示行数和实际对不上
     mapCoverage: true,
+    testRegex: '__tests__/.*.spec.js?$', //要测试的文件目录及后缀
   };
