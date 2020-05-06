@@ -5,7 +5,6 @@ import { Table, Select, Input, Form } from "antd";
 // import { compose } from "recompose";
 import Ellipsis from "../components/Ellipsis";
 import Button from "../components/Button";
-import ButtonGroups from "../components/ButtonGroups";
 import Modal from "../components/Modal";
 import i18n from "../i18n";
 // import i18next from '../i18next';
@@ -157,44 +156,6 @@ class Index extends React.Component<Props, State> {
             字典
           </Option>
         </Select>
-        <ButtonGroups
-          handleClick={this.handleClick.bind(this, "type")}
-          viewMode="icon"
-          showSize={2}
-          mode="ButtonMenu"
-        >
-          <Button permission={true} actionkey="aa">
-            aa
-          </Button>
-          <Button
-            permission={false}
-            actionkey="cc"
-            confirm="cccccccccccccccc"
-            tip="ccccccccccccccccc"
-          >
-            cc
-          </Button>
-          <Button permission={true} actionkey="bb" icon="apple">
-            bb
-          </Button>
-          <Button permission={true} actionkey="dd">
-            dd
-          </Button>
-          <Button permission={true} actionkey="ee">
-            ee
-          </Button>
-          <Button
-            permission={true}
-            actionkey="ff"
-            confirm="ffffffffffffffff"
-            tip="fffffffffffffff"
-          >
-            ff
-          </Button>
-          <Button permission={true} actionkey="gg" disabled={true}>
-            gg
-          </Button>
-        </ButtonGroups>
         <Modal
           title="我是title"
           visible={this.state.visible}
