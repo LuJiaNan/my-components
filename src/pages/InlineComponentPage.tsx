@@ -194,8 +194,11 @@ class Index extends React.Component<InlineProps, InlineState> {
             // menuItemSelectedIcon={<span>aaa</span>}
             // clearIcon={<div>bbb</div>}
             // removeIcon={<div>ccc</div>}
-            suffixIcon={<span>RMB</span>}
-          />
+          >
+            <Select.Option value="option1">option1</Select.Option>
+            <Select.Option value="option2">option2</Select.Option>
+            <Select.Option value="option3">option3</Select.Option>
+          </Select>
         </Item>
       </InlineComponent>
     );
@@ -216,6 +219,12 @@ class Index extends React.Component<InlineProps, InlineState> {
         onFinish={this.onFinish}
         onFinishFailed={this.onFinishFailed}
         className={`inlineComponent`}
+        initialValues={{
+          input1: 'i am input1',
+          input3: 'i am input3',
+          input5: 'i am input5',
+          select6: 'option3'
+        }}
       >
         {this.renderBody()}
         {this.renderFooter()}

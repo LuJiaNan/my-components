@@ -9,16 +9,9 @@ interface InlineProps {
   children: ReactNode[];
 }
 
-interface InlineState {
-  initialValues: any;
-}
-
 const MyDefaultInlineNumber = 2;
 
-export default class InlineComponent extends React.Component<
-  InlineProps,
-  InlineState
-> {
+export default class InlineComponent extends React.Component<InlineProps> {
   // 渲染
   renderBody() {
     const { inlineNumber } = this.props;
@@ -36,7 +29,7 @@ export default class InlineComponent extends React.Component<
     let count = 0;
     for (let i = 0; cloneData.length !== 0; i++) {
       const inlineItems = cloneData.slice(0, inlineNumber);
-      const inlineNode = inlineItems.map((item: any, index: number) => {
+      const inlineNode = inlineItems.map((item: ReactNode, index: number) => {
         return this.getInlineNode(index, item, inlineNumber);
       });
 

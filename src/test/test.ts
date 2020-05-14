@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+// import 'reflect-metadata';
 
 // @Reflect.metadata('role', 'admin')
 // class Post {}
@@ -421,3 +421,91 @@ import 'reflect-metadata';
 // let a = 'x'
 // console.log(Gamma[a]) // Gamma is not defined
 // // console.log(Delta)
+
+
+
+// ts3.9以下版本bug
+// interface Lion {
+
+//     roar(): void
+
+// }
+
+// interface Seal {
+
+//     singKissFromARose(): void
+
+// }
+
+// async function visitZoo(lionExhibit: Promise<Lion>, sealExhibit: Promise<Seal | undefined>) {
+
+//     let [lion, seal] = await Promise.all([lionExhibit, sealExhibit]);
+
+//     lion.roar(); // uh oh
+
+// // ~~~~
+
+// // Object is possibly 'undefined'.
+
+// }
+
+
+// interface A {
+
+//     a: number; // notice this is 'number'
+
+// }
+
+// interface B {
+
+//     b: string;
+
+// }
+
+// interface C {
+
+//     a?: boolean; // notice this is 'boolean'
+//     b: string;
+
+// }
+
+// declare let x: A & B;
+// declare let y: C;
+
+// y = x;
+
+
+
+// declare function smushObjects<T, U>(x: T, y: U): T & U;
+
+// interface Circle {
+
+//     kind: "circle";
+//     radius: number;
+
+// }
+
+// interface Square {
+
+//     kind: "square";
+//     sideLength: number;
+
+// }
+
+// declare let x: Circle;
+// declare let y: Square;
+// let z = smushObjects(x, y);
+
+// console.log(z.kind);
+
+
+// let a = [{name:'a',age:1},{name:'b',age:2}]
+// a.map(item =>{item.name})
+
+// let x = () => {10}
+
+
+
+// function foo<T extends any>(arg: T) {
+//     arg.spfjgerijghoied(); // no error!
+// }
