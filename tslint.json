@@ -21,6 +21,8 @@
     "prefer-const": false,
     "no-empty": false,
     "no-namespace": false,
-    "no-reference": false
+    "no-reference": false,
+    "max-classes-per-file": ["error", 10],
+    "variable-name": [true, "allow-leading-underscore"]
   }
 }

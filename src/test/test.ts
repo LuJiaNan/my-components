@@ -1,4 +1,5 @@
-// import 'reflect-metadata';
+
+import 'reflect-metadata'
 
 // @Reflect.metadata('role', 'admin')
 // class Post {}
@@ -509,3 +510,168 @@
 // function foo<T extends any>(arg: T) {
 //     arg.spfjgerijghoied(); // no error!
 // }
+
+
+// function f() {
+//     console.log("f(): evaluated");
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log("f(): called");
+//     }
+// }
+
+// function g() {
+//     console.log("g(): evaluated");
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log("g(): called");
+//     }
+// }
+
+// class C {
+//     @f()
+//     @g()
+//     method() {}
+// }
+
+
+// const a = new C();
+// a.method()
+
+
+
+// @sealed
+// class Greeter {
+//     greeting: string;
+//     constructor(message: string) {
+//         this.greeting = message;
+//     }
+//     greet() {
+//         return "Hello, " + this.greeting;
+//     }
+// }
+
+// function sealed(constructor: new(...args:any[]) => {}) {
+//     Object.seal(constructor);
+//     Object.seal(constructor.prototype);
+//     console.log(constructor)
+//     console.log(constructor.prototype);
+// }
+
+
+// function classDecorator<T extends new(...args:any[]) => {}>(constructor:T) {
+//     return class extends constructor {
+//         newProperty = "new property";
+//         hello = 111;
+//     }
+// }
+
+// // tslint:disable-next-line: max-classes-per-file
+// @classDecorator
+// class Greeter {
+//     property = "property";
+//     hello: string;
+//     constructor(m: string) {
+//         this.hello = m;
+//     }
+// }
+
+// console.log(new Greeter("world"));
+
+
+
+// class Greeter {
+//     greeting: string;
+//     constructor(message: string) {
+//         this.greeting = message;
+//     }
+//     set(message: string){
+//         this.greeting = message
+//     }
+
+//     @enumerable(false)
+//     greet() {
+//         return "Hello, " + this.greeting;
+//     }
+// }
+
+
+// function enumerable(value: boolean) {
+//     return  (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         descriptor.enumerable = value;
+//         descriptor.configurable = false;
+//         // descriptor.writable = false;
+//         console.log(descriptor)
+//     };
+// }
+
+// console.log(delete Greeter.prototype.greet) // false
+
+
+
+
+// class Point {
+//     // tslint:disable-next-line: variable-name
+//     private _x: number;
+//     // tslint:disable-next-line: variable-name
+//     private _y: number;
+//     constructor(x: number, y: number) {
+//         this._x = x;
+//         this._y = y;
+//     }
+
+//     @configurable(false)
+//     get x() { return this._x; }
+
+//     @configurable(false)
+//     get y() { return this._y; }
+// }
+
+
+// function configurable(value: boolean) {
+//     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log(target)
+//         console.log(propertyKey)
+//         descriptor.configurable = value;
+//     };
+// }
+
+// const p = new Point(1,2)
+
+// console.log(p.x)
+// p.x = '4'
+
+
+
+// function configurable(value:boolean){
+//     return (target: any,propertyKey:string,descriptor: PropertyDescriptor) => {
+//         descriptor.configurable = value;
+//     }
+// }
+
+
+
+class Greeter {
+    @format("Hello, %s")
+    greeting: string;
+
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        let formatString = getFormat(this, "greeting");
+        return formatString.replace("%s", this.greeting);
+    }
+}
+
+const formatMetadataKey = Symbol("format");
+
+function format(formatString: string) {
+    return Reflect.metadata(formatMetadataKey, formatString);
+}
+
+function getFormat(target: any, propertyKey: string) {
+    return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
+}
+
+
+const g = new Greeter('msg')
+console.log(g)

@@ -1,4 +1,12 @@
-// import 'reflect-metadata';
+"use strict";
+// import 'reflect-metadata'
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+exports.__esModule = true;
 // @Reflect.metadata('role', 'admin')
 // class Post {}
 // const metadata = Reflect.getMetadata('role', Post);
@@ -297,14 +305,183 @@
 // function isReallyInstanceOf<T>(ctor: new(...args: any[]) => T , obj: T) {
 //   return obj instanceof ctor;
 // }
-var Alpha;
-(function (Alpha) {
-    Alpha[Alpha["X"] = 0] = "X";
-    Alpha[Alpha["Y"] = 1] = "Y";
-    Alpha[Alpha["Z"] = 2] = "Z";
-})(Alpha || (Alpha = {}));
-console.log(Alpha);
-console.log(0 /* X */);
-var a = 'x';
-console.log(Gamma[a]); // Gamma is not defined
-// console.log(Delta)
+// enum Alpha { X, Y, Z }
+// const enum Beta { X, Y, Z }
+// declare enum Gamma { X, Y, Z, O }
+// declare const enum Delta { X, Y, Z }
+// console.log(Alpha)
+// console.log(Beta.X)
+// // console.log(Beta["0"])
+// let a = 'x'
+// console.log(Gamma[a]) // Gamma is not defined
+// // console.log(Delta)
+// ts3.9以下版本bug
+// interface Lion {
+//     roar(): void
+// }
+// interface Seal {
+//     singKissFromARose(): void
+// }
+// async function visitZoo(lionExhibit: Promise<Lion>, sealExhibit: Promise<Seal | undefined>) {
+//     let [lion, seal] = await Promise.all([lionExhibit, sealExhibit]);
+//     lion.roar(); // uh oh
+// // ~~~~
+// // Object is possibly 'undefined'.
+// }
+// interface A {
+//     a: number; // notice this is 'number'
+// }
+// interface B {
+//     b: string;
+// }
+// interface C {
+//     a?: boolean; // notice this is 'boolean'
+//     b: string;
+// }
+// declare let x: A & B;
+// declare let y: C;
+// y = x;
+// declare function smushObjects<T, U>(x: T, y: U): T & U;
+// interface Circle {
+//     kind: "circle";
+//     radius: number;
+// }
+// interface Square {
+//     kind: "square";
+//     sideLength: number;
+// }
+// declare let x: Circle;
+// declare let y: Square;
+// let z = smushObjects(x, y);
+// console.log(z.kind);
+// let a = [{name:'a',age:1},{name:'b',age:2}]
+// a.map(item =>{item.name})
+// let x = () => {10}
+// function foo<T extends any>(arg: T) {
+//     arg.spfjgerijghoied(); // no error!
+// }
+// function f() {
+//     console.log("f(): evaluated");
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log("f(): called");
+//     }
+// }
+// function g() {
+//     console.log("g(): evaluated");
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log("g(): called");
+//     }
+// }
+// class C {
+//     @f()
+//     @g()
+//     method() {}
+// }
+// const a = new C();
+// a.method()
+// @sealed
+// class Greeter {
+//     greeting: string;
+//     constructor(message: string) {
+//         this.greeting = message;
+//     }
+//     greet() {
+//         return "Hello, " + this.greeting;
+//     }
+// }
+// function sealed(constructor: new(...args:any[]) => {}) {
+//     Object.seal(constructor);
+//     Object.seal(constructor.prototype);
+//     console.log(constructor)
+//     console.log(constructor.prototype);
+// }
+// function classDecorator<T extends new(...args:any[]) => {}>(constructor:T) {
+//     return class extends constructor {
+//         newProperty = "new property";
+//         hello = 111;
+//     }
+// }
+// // tslint:disable-next-line: max-classes-per-file
+// @classDecorator
+// class Greeter {
+//     property = "property";
+//     hello: string;
+//     constructor(m: string) {
+//         this.hello = m;
+//     }
+// }
+// console.log(new Greeter("world"));
+// class Greeter {
+//     greeting: string;
+//     constructor(message: string) {
+//         this.greeting = message;
+//     }
+//     set(message: string){
+//         this.greeting = message
+//     }
+//     @enumerable(false)
+//     greet() {
+//         return "Hello, " + this.greeting;
+//     }
+// }
+// function enumerable(value: boolean) {
+//     return  (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         descriptor.enumerable = value;
+//         descriptor.configurable = false;
+//         // descriptor.writable = false;
+//         console.log(descriptor)
+//     };
+// }
+// console.log(delete Greeter.prototype.greet) // false
+// class Point {
+//     // tslint:disable-next-line: variable-name
+//     private _x: number;
+//     // tslint:disable-next-line: variable-name
+//     private _y: number;
+//     constructor(x: number, y: number) {
+//         this._x = x;
+//         this._y = y;
+//     }
+//     @configurable(false)
+//     get x() { return this._x; }
+//     @configurable(false)
+//     get y() { return this._y; }
+// }
+// function configurable(value: boolean) {
+//     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//         console.log(target)
+//         console.log(propertyKey)
+//         descriptor.configurable = value;
+//     };
+// }
+// const p = new Point(1,2)
+// console.log(p.x)
+// p.x = '4'
+// function configurable(value:boolean){
+//     return (target: any,propertyKey:string,descriptor: PropertyDescriptor) => {
+//         descriptor.configurable = value;
+//     }
+// }
+var Greeter = /** @class */ (function () {
+    function Greeter(message) {
+        this.greeting = message;
+    }
+    Greeter.prototype.greet = function () {
+        var formatString = getFormat(this, "greeting");
+        return formatString.replace("%s", this.greeting);
+    };
+    __decorate([
+        format("Hello, %s")
+    ], Greeter.prototype, "greeting");
+    return Greeter;
+}());
+require("reflect-metadata");
+var formatMetadataKey = Symbol("format");
+function format(formatString) {
+    return Reflect.metadata(formatMetadataKey, formatString);
+}
+function getFormat(target, propertyKey) {
+    return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
+}
+var g = new Greeter('msg');
+console.log(g);
