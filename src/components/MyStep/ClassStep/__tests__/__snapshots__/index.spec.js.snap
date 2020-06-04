@@ -1,0 +1,343 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`快照测试 step 组件快照 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Step
+    history={
+        Object {
+            "push": [Function],
+          }
+    }
+    location={
+        Object {
+            "pathname": "/first",
+          }
+    }
+    steps={
+        Array [
+            Object {
+              "component": "div",
+              "description": "我是第一步",
+              "path": "first",
+              "text": "第一步",
+            },
+            Object {
+              "component": "div",
+              "description": "我是第二步",
+              "path": "second",
+              "text": "第二步",
+            },
+          ]
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "children": Array [
+        <Steps
+          current={0}
+>
+          <Step
+                    description="我是第一步"
+                    title="第一步"
+          />
+          <Step
+                    description="我是第二步"
+                    title="第二步"
+          />
+</Steps>,
+        <div
+          getCurrentStep={[Function]}
+          goRoutes={[Function]}
+          history={
+                    Object {
+                              "push": [Function],
+                            }
+          }
+          location={
+                    Object {
+                              "pathname": "/first",
+                            }
+          }
+          steps={
+                    Array [
+                              Object {
+                                "component": "div",
+                                "description": "我是第一步",
+                                "path": "first",
+                                "text": "第一步",
+                              },
+                              Object {
+                                "component": "div",
+                                "description": "我是第二步",
+                                "path": "second",
+                                "text": "第二步",
+                              },
+                            ]
+          }
+/>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <Step
+              description="我是第一步"
+              title="第一步"
+/>,
+            <Step
+              description="我是第二步"
+              title="第二步"
+/>,
+          ],
+          "current": 0,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "第一步",
+            "nodeType": "class",
+            "props": Object {
+              "description": "我是第一步",
+              "title": "第一步",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "第二步",
+            "nodeType": "class",
+            "props": Object {
+              "description": "我是第二步",
+              "title": "第二步",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "getCurrentStep": [Function],
+          "goRoutes": [Function],
+          "history": Object {
+            "push": [Function],
+          },
+          "location": Object {
+            "pathname": "/first",
+          },
+          "steps": Array [
+            Object {
+              "component": "div",
+              "description": "我是第一步",
+              "path": "first",
+              "text": "第一步",
+            },
+            Object {
+              "component": "div",
+              "description": "我是第二步",
+              "path": "second",
+              "text": "第二步",
+            },
+          ],
+        },
+        "ref": Object {
+          "current": null,
+        },
+        "rendered": null,
+        "type": "div",
+      },
+    ],
+    "type": Symbol(react.fragment),
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "children": Array [
+          <Steps
+            current={0}
+>
+            <Step
+                        description="我是第一步"
+                        title="第一步"
+            />
+            <Step
+                        description="我是第二步"
+                        title="第二步"
+            />
+</Steps>,
+          <div
+            getCurrentStep={[Function]}
+            goRoutes={[Function]}
+            history={
+                        Object {
+                                    "push": [Function],
+                                  }
+            }
+            location={
+                        Object {
+                                    "pathname": "/first",
+                                  }
+            }
+            steps={
+                        Array [
+                                    Object {
+                                      "component": "div",
+                                      "description": "我是第一步",
+                                      "path": "first",
+                                      "text": "第一步",
+                                    },
+                                    Object {
+                                      "component": "div",
+                                      "description": "我是第二步",
+                                      "path": "second",
+                                      "text": "第二步",
+                                    },
+                                  ]
+            }
+/>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <Step
+                description="我是第一步"
+                title="第一步"
+/>,
+              <Step
+                description="我是第二步"
+                title="第二步"
+/>,
+            ],
+            "current": 0,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "第一步",
+              "nodeType": "class",
+              "props": Object {
+                "description": "我是第一步",
+                "title": "第一步",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "第二步",
+              "nodeType": "class",
+              "props": Object {
+                "description": "我是第二步",
+                "title": "第二步",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "getCurrentStep": [Function],
+            "goRoutes": [Function],
+            "history": Object {
+              "push": [Function],
+            },
+            "location": Object {
+              "pathname": "/first",
+            },
+            "steps": Array [
+              Object {
+                "component": "div",
+                "description": "我是第一步",
+                "path": "first",
+                "text": "第一步",
+              },
+              Object {
+                "component": "div",
+                "description": "我是第二步",
+                "path": "second",
+                "text": "第二步",
+              },
+            ],
+          },
+          "ref": Object {
+            "current": null,
+          },
+          "rendered": null,
+          "type": "div",
+        },
+      ],
+      "type": Symbol(react.fragment),
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Map {},
+  Symbol(enzyme.__childContext__): null,
+}
+`;
