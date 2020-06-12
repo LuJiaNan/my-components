@@ -52,14 +52,18 @@ exports.param = function () {
                     switch (_a.label) {
                         case 0:
                             type = this.__proto__.constructor.name + "/" + propertyKey;
-                            args = args.map(function (value) {
+                            args.map(function (value) {
                                 var payload = {
                                     type: type,
                                     payload: value
                                 };
-                                setToString(fn, function () { return type; });
                                 //@ts-ignore
-                                _this.middleware.fetchParams(payload);
+                                if (_this.__proto__[propertyKey]) {
+                                    //@ts-ignore
+                                    _this.__proto__[propertyKey].toString = function () { return type; };
+                                    //@ts-ignore
+                                    _this.middleware.fetchParams(payload);
+                                }
                             });
                             return [4 /*yield*/, fn.apply(this, args)];
                         case 1:
@@ -93,23 +97,20 @@ exports.loading = function () {
                                 type: type,
                                 payload: false
                             };
-                            setToString(fn, function () { return type; });
+                            if (!this.__proto__[propertyKey]) return [3 /*break*/, 2];
+                            //@ts-ignore
+                            this.__proto__[propertyKey].toString = function () { return type; };
                             _a = this.middleware, fetchReq = _a.fetchReq, fetchRes = _a.fetchRes;
                             fetchReq(reqPayload);
                             return [4 /*yield*/, fn.apply(this, args)];
                         case 1:
                             _b.sent();
                             fetchRes(resPayload);
-                            return [2 /*return*/];
+                            _b.label = 2;
+                        case 2: return [2 /*return*/];
                     }
                 });
             });
         };
     };
-};
-var setToString = function (obj, fn) {
-    if (obj.__proto__) {
-        obj.__proto__.toString = fn;
-        setToString(obj.__proto__, fn);
-    }
 };

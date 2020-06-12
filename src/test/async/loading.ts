@@ -8,16 +8,20 @@ export const param = () => {
     descriptor.value = async function(...args: any[]) {
       // @ts-ignore
       let type = `${this.__proto__.constructor.name}/${propertyKey}`;
-      args = args.map(value => {
+      args.map(value => {
         let payload = {
           type: type,
           payload: value
         };
 
-        setToString(fn, () => type);
-
         //@ts-ignore
-        this.middleware.fetchParams(payload);
+        if (this.__proto__[propertyKey]) {
+          //@ts-ignore
+          this.__proto__[propertyKey].toString = () => type;
+
+          //@ts-ignore
+          this.middleware.fetchParams(payload);
+        }
       });
       await fn.apply(this, args);
     };
@@ -43,21 +47,18 @@ export const loading = () => {
         payload: false
       };
 
-      setToString(fn, () => type);
-
       // @ts-ignore
-      const {fetchReq, fetchRes} = this.middleware;
+      if (this.__proto__[propertyKey]) {
+        //@ts-ignore
+        this.__proto__[propertyKey].toString = () => type;
 
-      fetchReq(reqPayload);
-      await fn.apply(this, args);
-      fetchRes(resPayload);
+        // @ts-ignore
+        const {fetchReq, fetchRes} = this.middleware;
+
+        fetchReq(reqPayload);
+        await fn.apply(this, args);
+        fetchRes(resPayload);
+      }
     };
   };
-};
-
-const setToString = (obj: any, fn: Function) => {
-  if (obj.__proto__) {
-    obj.__proto__.toString = fn;
-    setToString(obj.__proto__, fn);
-  }
 };

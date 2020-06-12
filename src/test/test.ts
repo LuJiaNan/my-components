@@ -1,5 +1,4 @@
-
-import 'reflect-metadata'
+// import "reflect-metadata";
 
 // @Reflect.metadata('role', 'admin')
 // class Post {}
@@ -62,11 +61,6 @@ import 'reflect-metadata'
 // // This should be an error
 // sendToPrinter(getCursorPos());
 
-
-
-
-
-
 // // Define FooTable and FooIndex
 // type FooIndex = string;  // Proposed new kind of nominal declaration.
 // interface FooTable {
@@ -117,8 +111,6 @@ import 'reflect-metadata'
 // GoodBarTest(t1); // Gives runtime error; Proposed to be type error.
 // GoodBarTest(t2);
 
-
-
 // let x: any = true;
 // let y = x as string; // Expected: runtime error (can't convert boolean to string)
 
@@ -128,11 +120,9 @@ import 'reflect-metadata'
 // console.log(y)
 // console.log(b)
 
-
 // let myFunc: (number) => string = (n) => 'The number in hex is ' + n.toString(16);
 // // Expected error because boolean is not number
 // console.log(myFunc(true));
-
 
 // interface Car{
 //     name: string
@@ -150,8 +140,6 @@ import 'reflect-metadata'
 // // Error, or not?
 // let x: { [n: string]: Car } = { 'mine': c };
 
-
-
 // function createLog(message:string): number;
 // function createLog(source:string, message:string): number
 // function createLog(source:string, message?:string): number {
@@ -159,11 +147,10 @@ import 'reflect-metadata'
 // }
 
 // let a = createLog("message"); // OK
-// let b = createLog("source", "message"); 
+// let b = createLog("source", "message");
 
 // console.log(a)
 // console.log(b)
-
 
 // function compare(a: string, b: string): void;
 // function compare(a: number, b: number): void;
@@ -174,7 +161,6 @@ import 'reflect-metadata'
 // compare(1,2) // OK
 // compare("s", "l") // OK
 // compare (1, "l") // Error.
-
 
 // class Base {
 //     important: number;
@@ -193,17 +179,16 @@ import 'reflect-metadata'
 // console.log(a)
 // console.log(b)
 
-
 // class Alpha { x: number }
 // class Bravo { x: number }
-// class Charlie { 
-//   protected x: number 
+// class Charlie {
+//   protected x: number
 //   add(){
 //     console.log(this.x)
 //   }
 // }
-// class Delta { 
-//   protected x: number 
+// class Delta {
+//   protected x: number
 //   add(){
 //     console.log(this.x)
 //   }
@@ -214,11 +199,6 @@ import 'reflect-metadata'
 
 // a = b; // OK
 // c = d; // Error
-  
-
-
-
-
 
 // class MyClass {
 //   x = 10;
@@ -234,7 +214,6 @@ import 'reflect-metadata'
 // let obj = new MyClass();
 // // global.setTimeout(obj.someCallback, 10);
 // global.setTimeout(obj.someCallback.bind(obj), 10);
-
 
 // class MyClass {
 //   x = 10;
@@ -252,10 +231,6 @@ import 'reflect-metadata'
 
 // let obj = new MyClass();
 // obj.time()
-
-
-
-
 
 // class Base {
 
@@ -278,7 +253,6 @@ import 'reflect-metadata'
 
 // console.log(base.myVar); // 'Base' - As expected
 // console.log(child.myVar); // 'Child' - As expected
-
 
 // class Base {
 
@@ -311,8 +285,6 @@ import 'reflect-metadata'
 // // console.log(base.myVar); // 'Base'
 // // console.log(child.myVar); // 'Child'
 
-
-
 // class FooError extends Error {
 //   constructor(m: string) {
 //       super(m);
@@ -337,7 +309,6 @@ import 'reflect-metadata'
 
 // console.log(new FooError('error'))
 
-
 // interface Something<T> {
 //   name: string;
 // }
@@ -349,7 +320,6 @@ import 'reflect-metadata'
 // };
 // // Expected error: Can't convert Something<number> to Something<string>!
 // x = y;
-
 
 // interface Named<T> {
 //   name: string;
@@ -364,7 +334,6 @@ import 'reflect-metadata'
 
 // let x: MyNamed<string>;
 // let y = findByName(x); // expected y: string, got y: {}
-
 
 // interface Named<T> {
 //   name: string;
@@ -385,8 +354,6 @@ import 'reflect-metadata'
 // };
 // console.log(x)
 // let y = findByName(x); // got y: string;
-
-
 
 // function doSomething<T>(x: T) {
 //   // Can't find name T?
@@ -410,7 +377,6 @@ import 'reflect-metadata'
 //   return obj instanceof ctor;
 // }
 
-
 // enum Alpha { X, Y, Z }
 // const enum Beta { X, Y, Z }
 // declare enum Gamma { X, Y, Z, O }
@@ -422,8 +388,6 @@ import 'reflect-metadata'
 // let a = 'x'
 // console.log(Gamma[a]) // Gamma is not defined
 // // console.log(Delta)
-
-
 
 // ts3.9以下版本bug
 // interface Lion {
@@ -450,7 +414,6 @@ import 'reflect-metadata'
 
 // }
 
-
 // interface A {
 
 //     a: number; // notice this is 'number'
@@ -475,8 +438,6 @@ import 'reflect-metadata'
 
 // y = x;
 
-
-
 // declare function smushObjects<T, U>(x: T, y: U): T & U;
 
 // interface Circle {
@@ -499,18 +460,14 @@ import 'reflect-metadata'
 
 // console.log(z.kind);
 
-
 // let a = [{name:'a',age:1},{name:'b',age:2}]
 // a.map(item =>{item.name})
 
 // let x = () => {10}
 
-
-
 // function foo<T extends any>(arg: T) {
 //     arg.spfjgerijghoied(); // no error!
 // }
-
 
 // function f() {
 //     console.log("f(): evaluated");
@@ -532,11 +489,8 @@ import 'reflect-metadata'
 //     method() {}
 // }
 
-
 // const a = new C();
 // a.method()
-
-
 
 // @sealed
 // class Greeter {
@@ -555,7 +509,6 @@ import 'reflect-metadata'
 //     console.log(constructor)
 //     console.log(constructor.prototype);
 // }
-
 
 // function classDecorator<T extends new(...args:any[]) => {}>(constructor:T) {
 //     return class extends constructor {
@@ -576,8 +529,6 @@ import 'reflect-metadata'
 
 // console.log(new Greeter("world"));
 
-
-
 // class Greeter {
 //     greeting: string;
 //     constructor(message: string) {
@@ -593,7 +544,6 @@ import 'reflect-metadata'
 //     }
 // }
 
-
 // function enumerable(value: boolean) {
 //     return  (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
 //         descriptor.enumerable = value;
@@ -604,9 +554,6 @@ import 'reflect-metadata'
 // }
 
 // console.log(delete Greeter.prototype.greet) // false
-
-
-
 
 // class Point {
 //     // tslint:disable-next-line: variable-name
@@ -625,7 +572,6 @@ import 'reflect-metadata'
 //     get y() { return this._y; }
 // }
 
-
 // function configurable(value: boolean) {
 //     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
 //         console.log(target)
@@ -639,39 +585,184 @@ import 'reflect-metadata'
 // console.log(p.x)
 // p.x = '4'
 
-
-
 // function configurable(value:boolean){
 //     return (target: any,propertyKey:string,descriptor: PropertyDescriptor) => {
 //         descriptor.configurable = value;
 //     }
 // }
 
+// class Greeter {
+//     @format("Hello, %s")
+//     greeting: string;
+
+//     constructor(message: string) {
+//         this.greeting = message;
+//     }
+//     greet() {
+//         let formatString = getFormat(this, "greeting");
+//         return formatString.replace("%s", this.greeting);
+//     }
+// }
+
+// const formatMetadataKey = Symbol("format");
+
+// function format(formatString: string) {
+//     return Reflect.metadata(formatMetadataKey, formatString);
+// }
+
+// function getFormat(target: any, propertyKey: string) {
+//     return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
+// }
+
+// const g = new Greeter('msg')
+// console.log(g)
 
 
-class Greeter {
-    @format("Hello, %s")
-    greeting: string;
-
-    constructor(message: string) {
-        this.greeting = message;
-    }
-    greet() {
-        let formatString = getFormat(this, "greeting");
-        return formatString.replace("%s", this.greeting);
-    }
-}
-
-const formatMetadataKey = Symbol("format");
-
-function format(formatString: string) {
-    return Reflect.metadata(formatMetadataKey, formatString);
-}
-
-function getFormat(target: any, propertyKey: string) {
-    return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
-}
 
 
-const g = new Greeter('msg')
-console.log(g)
+
+// 交叉类型和继承，以及ReactNode和ReactElement
+// interface A {
+//   name: string;
+//   age: number;
+// }
+
+// interface B {
+//   sex: string;
+//   weight: number;
+//   age: string;
+// }
+// const C: A & B = {
+//   name: "",
+//   age: 1,
+//   sex: "",
+//   weight: 2,
+// };
+
+// interface C {
+//   name: string;
+//   age: number;
+// }
+
+// interface D extends C {
+//   sex: string;
+//   weight: number;
+//   age: string;
+// }
+
+// const E: D = {
+//   name: "",
+//   age: "",
+//   sex: "",
+//   weight: 23,
+// };
+
+// interface node {
+//   a: React.ReactElement;
+//   b: React.ReactNode;
+// }
+
+// const aaa: node = {
+//   a: {
+//     type: "",
+//     props: {},
+//     key: null,
+//   },
+//   b: "",
+// };
+
+
+
+
+// this 连贯接口继承
+// class BasicCalculator {
+//   constructor(protected value: number = 0) {}
+//   currentValue(): number {
+//     return this.value;
+//   }
+//   add(operand: number): this {
+//     this.value += operand;
+//     return this;
+//   }
+//   multiply(operand: number): this {
+//     this.value *= operand;
+//     return this;
+//   }
+//   // ... other operations go here ...
+// }
+
+// let v1 = new BasicCalculator(2).multiply(5).add(1).currentValue();
+// console.log(v1);
+
+// class ScientificCalculator extends BasicCalculator {
+//   constructor(value = 0) {
+//     super(value);
+//   }
+//   sin():this {
+//     this.value = Math.sin(this.value);
+//     return this;
+//   }
+//   // ... other operations go here ...
+// }
+
+// let v2 = new ScientificCalculator(2).multiply(5).sin().add(1).currentValue();
+// console.log(v2)
+
+// function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
+//   return names.map((n) => o[n]);
+// }
+
+// interface Person {
+//   name: string;
+//   age: number;
+//   sex: string;
+// }
+// let person: Person = {
+//   name: "Jarid",
+//   age: 35,
+//   sex: 'man'
+// };
+// let strings: string[] = pluck(person, ["name","sex"]); // [ 'Jarid', 'man' ]
+
+// console.log(strings)
+
+
+// type petsGroup = 'dog' | 'cat' | 'fish';
+// interface IPetInfo {
+//     name:string,
+//     age:number,
+// }
+
+// type IPets = Record<petsGroup, IPetInfo>;
+
+// const animalsInfo:IPets = {
+//     dog:{
+//         name:'dogName',
+//         age:2
+//     },
+//     cat:{
+//         name:'catName',
+//         age:3
+//     },
+//     fish:{
+//         name:'fishName',
+//         age:5
+//     }
+// }
+
+
+
+// returnType使用
+// function fn(): string {
+//     return 'aaaa'
+// }
+
+// function f1(s: string) {
+//     return { a: 1, b: s };
+// }
+
+// const returnType1:ReturnType<typeof fn> = 1
+// const returnType2:ReturnType<typeof f1> = {
+//     a:555,
+//     b:'ssss'
+// }
