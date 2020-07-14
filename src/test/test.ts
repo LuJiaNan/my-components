@@ -617,10 +617,6 @@
 // const g = new Greeter('msg')
 // console.log(g)
 
-
-
-
-
 // 交叉类型和继承，以及ReactNode和ReactElement
 // interface A {
 //   name: string;
@@ -670,9 +666,6 @@
 //   },
 //   b: "",
 // };
-
-
-
 
 // this 连贯接口继承
 // class BasicCalculator {
@@ -726,7 +719,6 @@
 
 // console.log(strings)
 
-
 // type petsGroup = 'dog' | 'cat' | 'fish';
 // interface IPetInfo {
 //     name:string,
@@ -750,8 +742,6 @@
 //     }
 // }
 
-
-
 // returnType使用
 // function fn(): string {
 //     return 'aaaa'
@@ -766,3 +756,85 @@
 //     a:555,
 //     b:'ssss'
 // }
+
+// type Unpacked<T> =
+//     T extends Array<infer U> ? U :
+//     T extends (...args: any[]) => infer U ? U :
+//     T extends Promise<infer U> ? U :
+//     T;
+
+// type T0 = Unpacked<string>;  // string
+// type T1 = Unpacked<string[]>;  // string
+// type T2 = Unpacked<() => string>;  // string
+// type T3 = Unpacked<Promise<string>>;  // string
+// type T4 = Unpacked<Array<Promise<string>>>;  // Promise<string>
+// type T5 = Unpacked<Unpacked<Array<Promise<string>>>>;  // string
+
+// type Foo<T> = T extends { a: infer U, b: infer U } ? U : never;
+// type T10 = Foo<{ a: string, b: string }>;  // string
+// type T11 = Foo<{ a: string, b: number }>;  // string | number
+
+// interface Point {
+//   x: number;
+//   y: number;
+//   new (x: number, y: number): Point;
+// }
+
+// class Point2D implements Point {
+//   readonly x: number;
+//   readonly y: number;
+
+//   constructor(x: number, y: number) {
+//     this.x = x;
+//     this.y = y;
+//   }
+// }
+
+// const point: Point = new Point2D(1, 2);
+
+
+// class ExampleOne {
+//     hi() {
+//         alert('Hi');
+//     }
+// }
+
+// class Creator<T> {
+//     constructor() {
+
+//     }
+//     getNew() {
+//         return new T();
+//     }
+// }
+
+// let creator = new Creator<ExampleOne>();
+
+// let example = creator.getNew();
+// example.hi();
+
+
+class ExampleOne {
+    hi() {
+        console.log('Hi');
+    }
+}
+
+// interface ParameterlessConstructor<T> {
+//     new(): T;
+// }
+type ParameterlessConstructor<T> = new() => T;
+
+class Creator<T> {
+    constructor(private ctor: ParameterlessConstructor<T>) {
+
+    }
+    getNew() {
+        return new this.ctor();
+    }
+}
+
+let creator = new Creator(ExampleOne);
+
+let example = creator.getNew();
+example.hi();

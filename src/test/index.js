@@ -187,3 +187,82 @@
 // const proxy = new Proxy(target, handler);
 
 // proxy.getDate() // 1
+
+
+// 只包含0和1的所有带1子字符串个数
+// var numSub = function(s) {
+//     let arr = s.split('0').filter(item => item.indexOf('1') > -1);
+
+//     let count = 0;
+//     for(let i = 0; i<arr.length;i++){
+//         if(arr[i].length === 1){
+//             count++;
+//             continue;
+//         }
+//         count += (arr[i].length*(arr[i].length+1)) / 2
+//     }
+//     return count % (Math.pow(10,9) + 7)
+//     // for(let i = 0;i < s.length; i++){
+//     //     if(s[i] == '1'){
+//     //         count++;
+//     //         let j = i+1;
+//     //         while(s[j] == '1'){
+//     //             count++;
+//     //             j++;
+//     //         }
+//     //     }
+//     // }
+//     // return count
+// };
+
+// console.log(numSub('101010101010111'))
+
+
+
+// 求峰值
+// var findPeakElement = function(nums) {
+//     //1
+//     for (let i = 0; i < nums.length - 1; i++) {
+//         if (nums[i] > nums[i + 1])
+//             return i;
+//     }
+//     return nums.length - 1;
+// };
+
+// console.log(findPeakElement([1,2,3,1]))
+
+//求交集
+// var intersect = function(nums1, nums2) {
+//     let s = [];
+//     nums1.forEach(item => {
+//         if(nums2.indexOf(item) > -1){
+//             s.push(item);
+//             let index = nums2.indexOf(item)
+//             nums2 = nums2.filter((i,position) => position!==index)
+//         }
+//     })
+//     return s
+// };
+
+// console.log(intersect([1,2,2,1],[2,2]))
+
+
+// 颜色分类
+
+// var sortColors = function(nums) {
+//     let arr = [];
+//     nums.forEach(item => {
+//         if(item === 0){
+//             arr.unshift(0)
+//         }else if(item === 2){
+//             arr.push(2)
+//         }else{
+//             arr.splice(arr.lastIndexOf(0)+1,0,1)
+//         }
+//     })
+
+//     return arr
+// };
+
+// let nums = [2,0,2,1,1,0]
+// console.log(sortColors(nums))
