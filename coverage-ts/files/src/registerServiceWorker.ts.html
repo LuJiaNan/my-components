@@ -1,0 +1,141 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>registerServiceWorker.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\registerServiceWorker.ts</td><td class="">98.23%</td><td class="">80%</td><td class="">113</td><td class="">111</td><td class="">2</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">// tslint:disable:no-console
+// In production, we register a service worker to serve assets from local cache.
+
+// This lets the app load faster on subsequent visits in production, and gives
+// it offline capabilities. However, it also means that developers (and users)
+// will only see deployed updates on the &#x27;N+1&#x27; visit to a page, since previously
+// cached resources are updated in the background.
+
+// To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
+// This link also includes instructions on opting out of this behavior.
+
+const isLocalhost = Boolean(
+  window.location.hostname === &#x27;localhost&#x27; ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === &#x27;[::1]&#x27; ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+export default function register() {
+  if (process.env.NODE_ENV === &#x27;production&#x27; &amp;&amp; &#x27;serviceWorker&#x27; in navigator) {
+    // The URL constructor is available in all browsers that support SW.
+    const publicUrl = new URL(
+      process.env.PUBLIC_URL!,
+      window.location.toString()
+    );
+    if (publicUrl.origin !== window.location.origin) {
+      // Our service worker won&#x27;t work if PUBLIC_URL is on a different origin
+      // from what our page is served on. This might happen if a CDN is used to
+      // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
+      return;
+    }
+
+    window.addEventListener(&#x27;load&#x27;, () =&gt; {
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+
+      if (isLocalhost) {
+        // This is running on localhost. Lets check if a service worker still exists or not.
+        checkValidServiceWorker(swUrl);
+
+        // Add some additional logging to localhost, pointing developers to the
+        // service worker/PWA documentation.
+        navigator.serviceWorker.ready.then(() =&gt; {
+          console.log(
+            &#x27;This web app is being served cache-first by a service &#x27; +
+              &#x27;worker. To learn more, visit https://goo.gl/SC7cgQ&#x27;
+          );
+        });
+      } else {
+        // Is not local host. Just register service worker
+        registerValidSW(swUrl);
+      }
+    });
+  }
+}
+
+function registerValidSW(swUrl: string) {
+  navigator.serviceWorker
+    .register(swUrl)
+    .then(registration =&gt; {
+      registration.onupdatefound = () =&gt; {
+        const installingWorker = registration.installing;
+        if (installingWorker) {
+          installingWorker.onstatechange = () =&gt; {
+            if (installingWorker.state === &#x27;installed&#x27;) {
+              if (navigator.serviceWorker.controller) {
+                // At this point, the old content will have been purged and
+                // the fresh content will have been added to the cache.
+                // It&#x27;s the perfect time to display a &#x27;New content is
+                // available; please refresh.&#x27; message in your web app.
+                console.log(&#x27;New content is available; please refresh.&#x27;);
+              } else {
+                // At this point, everything has been precached.
+                // It&#x27;s the perfect time to display a
+                // &#x27;Content is cached for offline use.&#x27; message.
+                console.log(&#x27;Content is cached for offline use.&#x27;);
+              }
+            }
+          };
+        }
+      };
+    })
+    .catch(error =&gt; {
+      console.error(&#x27;Error during service worker registration:&#x27;, error);
+    });
+}
+
+function checkValidServiceWorker(swUrl: string) {
+  // Check if the service worker can be found. If it can&#x27;t reload the page.
+  fetch(swUrl)
+    .then(response =&gt; {
+      // Ensure service worker exists, and that we really are getting a JS file.
+      if (
+        response.status === 404 ||
+        response.headers.get(&#x27;content-type&#x27;)!.indexOf(&#x27;javascript&#x27;) === -1
+      ) {
+        // No service worker found. Probably a different app. Reload the page.
+        navigator.serviceWorker.ready.then(registration =&gt; {
+          registration.unregister().then(() =&gt; {
+            window.location.reload();
+          });
+        });
+      } else {
+        // Service worker found. Proceed as normal.
+        registerValidSW(swUrl);
+      }
+    })
+    .catch(() =&gt; {
+      console.log(
+        &#x27;No internet connection found. App is running in offline mode.&#x27;
+      );
+    });
+}
+
+export function unregister() {
+  if (&#x27;serviceWorker&#x27; in navigator) {
+    navigator.serviceWorker.ready.then(registration =&gt; {
+      registration.unregister();
+    });
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\registerServiceWorker.ts&quot;,&quot;line&quot;:84,&quot;character&quot;:11,&quot;text&quot;:&quot;error&quot;},{&quot;file&quot;:&quot;src\\registerServiceWorker.ts&quot;,&quot;line&quot;:85,&quot;character&quot;:65,&quot;text&quot;:&quot;error&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:52 GMT</p>
+    </body>
+  </html>
+  

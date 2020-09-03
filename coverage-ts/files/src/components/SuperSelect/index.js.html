@@ -1,0 +1,390 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.js</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\components\SuperSelect\index.js</td><td class="">81.17%</td><td class="">80%</td><td class="">547</td><td class="">444</td><td class="">103</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">/* eslint-disable react/destructuring-assignment */
+import React, { PureComponent } from &quot;react&quot;;
+// import NewSelect from &quot;./Select&quot;;
+import {Select} from &#x27;antd&#x27;
+import DropDownWrap from &quot;./DropDownWrap&quot;;
+
+// 页面实际渲染的下拉菜单数量，实际为 2 * ITEM_ELEMENT_NUMBER
+const ITEM_ELEMENT_NUMBER = 30;
+// Select size 配置
+const ITEM_HEIGHT_CFG = {
+  small: 24,
+  large: 40,
+  default: 32
+};
+
+const ARROW_CODE = {
+  40: &quot;down&quot;,
+  38: &quot;up&quot;
+};
+
+const DROPDOWN_HEIGHT = 224;
+
+export default class SuperSelect extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    const { mode, defaultValue, value } = props;
+    this.isMultiple = [&quot;tags&quot;, &quot;multiple&quot;].includes(mode);
+
+    // 设置默认 value
+    let defaultV = this.isMultiple ? [] : &quot;&quot;;
+    defaultV = value || defaultValue || defaultV;
+
+    this.state = {
+      children: props.children || [],
+      filterChildren: null,
+      value: defaultV
+    };
+    // 下拉菜单项行高
+    this.ITEM_HEIGHT = ITEM_HEIGHT_CFG[props.size || &quot;default&quot;];
+    // 可视区 dom 高度
+    this.visibleDomHeight = this.ITEM_HEIGHT * ITEM_ELEMENT_NUMBER;
+    // 滚动时重新渲染的 scrollTop 判断值，大于 reactDelta 则刷新下拉列表
+    this.reactDelta = this.visibleDomHeight / 3;
+    // 是否拖动滚动条快速滚动状态
+    this.isStopReact = false;
+    // 上一次滚动的 scrollTop 值
+    this.prevScrollTop = 0;
+    // 上一次按下方向键时 scrollTop 值
+    this.prevTop = 0;
+
+    this.scrollTop = 0;
+
+    // className
+    this.dropdownClassName = `dc${+new Date()}`;
+
+    this.id = `sid${+new Date()}`;
+  }
+
+  componentDidMount() {
+    // defaultOpens=true 时添加滚动事件
+    setTimeout(() =&gt; {
+      this.addEvent();
+    }, 500);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { mode, defaultValue, value, children } = this.props;
+    if (prevProps.children !== children) {
+      this.isMultiple = [&quot;tags&quot;, &quot;multiple&quot;].includes(mode);
+
+      this.setState({
+        children: children || [],
+        filterChildren: null
+      });
+    }
+    if (prevProps.value !== value) {
+      // 更新时设置默认 value
+      let defaultV = this.isMultiple ? [] : &quot;&quot;;
+      defaultV = value || defaultValue || defaultV;
+      this.setState({ value: defaultV }, () =&gt; {
+        this.scrollToValue();
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this.removeEvent();
+  }
+
+  // value 存在时需要滚动到 value 所在位置
+  scrollToValue = () =&gt; {
+    if (!this.scrollEle) {
+      return;
+    }
+    const { children } = this.props;
+    const { value } = this.state;
+    const index = children.findIndex(item =&gt; item.key === value) || 0;
+
+    const y = this.ITEM_HEIGHT * index;
+    this.scrollEle.scrollTop = y;
+    setTimeout(() =&gt; {
+      this.forceUpdate();
+    }, 0);
+  };
+
+  getItemStyle = i =&gt; ({
+    position: &quot;absolute&quot;,
+    top: this.ITEM_HEIGHT * i,
+    width: &quot;100%&quot;,
+    height: this.ITEM_HEIGHT
+  });
+
+  addEvent = () =&gt; {
+    this.scrollEle = document.querySelector(`.${this.dropdownClassName}`);
+    // 下拉菜单未展开时元素不存在
+    if (!this.scrollEle) {
+      return;
+    }
+
+    this.scrollEle.addEventListener(&quot;scroll&quot;, this.onScroll, false);
+    this.inputEle = document.querySelector(`#${this.id}`);
+
+    if (!this.inputEle) {
+      return;
+    }
+    this.inputEle.addEventListener(&quot;keydown&quot;, this.onKeyDown, false);
+  };
+
+  // 模拟 antd select 按下 上下箭头 键时滚动列表
+  onKeyDown = e =&gt; {
+    const { keyCode } = e || {};
+
+    setTimeout(() =&gt; {
+      const activeItem = document.querySelector(
+        `.${this.dropdownClassName} .ant-select-dropdown-menu-item-active`
+      );
+      if (!activeItem) {
+        return;
+      }
+
+      const { offsetTop } = activeItem;
+      const isUp = ARROW_CODE[keyCode] === &quot;up&quot;;
+      const isDown = ARROW_CODE[keyCode] === &quot;down&quot;;
+
+      // 在所有列表第一行按上键
+      if (offsetTop - this.prevTop &gt; DROPDOWN_HEIGHT &amp;&amp; isUp) {
+        this.scrollEle.scrollTo(0, this.allHeight - DROPDOWN_HEIGHT);
+        this.prevTop = this.allHeight;
+
+        return;
+      }
+
+      // 在所有列表中最后一行按下键
+      if (this.prevTop &gt; offsetTop + DROPDOWN_HEIGHT &amp;&amp; isDown) {
+        this.scrollEle.scrollTo(0, 0);
+        this.prevTop = 0;
+
+        return;
+      }
+
+      this.prevTop = offsetTop;
+      // 向下滚动到下拉框最后一行时，向下滚动一行的高度
+      if (
+        offsetTop &gt;
+          this.scrollEle.scrollTop + DROPDOWN_HEIGHT - this.ITEM_HEIGHT + 10 &amp;&amp;
+        isDown
+      ) {
+        this.scrollEle.scrollTo(0, this.scrollTop + this.ITEM_HEIGHT);
+        return;
+      }
+      // 向上滚动到下拉框第一一行时，向上滚动一行的高度
+      if (offsetTop &lt; this.scrollEle.scrollTop &amp;&amp; isUp) {
+        this.scrollEle.scrollTo(0, this.scrollTop - this.ITEM_HEIGHT);
+      }
+    }, 100);
+  };
+
+  onScroll = () =&gt; this.throttleByHeight(this.onScrollReal);
+
+  onScrollReal = () =&gt; {
+    this.allList = this.getUseChildrenList();
+    const { startIndex, endIndex } = this.getStartAndEndIndex();
+
+    this.prevScrollTop = this.scrollTop;
+    // 重新渲染列表组件 Wrap
+    const allHeight = this.allList.length * this.ITEM_HEIGHT || 100;
+    this.wrap.reactList(allHeight, startIndex, endIndex);
+  };
+
+  throttleByHeight = () =&gt; {
+    this.scrollTop = this.scrollEle.scrollTop;
+    // 滚动的高度
+    let delta = this.prevScrollTop - this.scrollTop;
+    delta = delta &lt; 0 ? 0 - delta : delta;
+
+    if(delta &gt; this.reactDelta){
+      this.onScrollReal();
+    }
+  };
+
+  // 列表可展示所有 children
+  getUseChildrenList = () =&gt; this.state.filterChildren || this.state.children;
+
+  getStartAndEndIndex = () =&gt; {
+    // 滚动后显示在列表可视区中的第一个 item 的 index
+    const showIndex = Number((this.scrollTop / this.ITEM_HEIGHT).toFixed(0));
+
+    const startIndex =
+      showIndex - ITEM_ELEMENT_NUMBER &lt; 0
+        ? 0
+        : showIndex - ITEM_ELEMENT_NUMBER / 2;
+    const endIndex = showIndex + ITEM_ELEMENT_NUMBER;
+    return { startIndex, endIndex };
+  };
+
+  // 须使用 setTimeout 确保在 dom 加载完成之后添加事件
+  setSuperDrowDownMenu = visible =&gt; {
+    if (!visible) {
+      return;
+    }
+
+    this.allList = this.getUseChildrenList();
+
+    if (!this.eventTimer) {
+      this.eventTimer = setTimeout(() =&gt; this.addEvent(), 0);
+    } else {
+      const allHeight = this.allList.length * this.ITEM_HEIGHT || 100;
+      // 下拉列表单独重新渲染
+      const { startIndex, endIndex } = this.getStartAndEndIndex();
+      if(this.wrap){
+        this.wrap.reactList(allHeight, startIndex, endIndex);
+      }
+    }
+  };
+
+  onDeselect = value =&gt; {
+    const { onDeselect } = this.props;
+
+    if(onDeselect){
+      onDeselect(value);
+    }
+  };
+
+  // 在搜索重新计算下拉滚动条高度
+  onChange = (value, opt) =&gt; {
+    const { showSearch, onChange, autoClearSearchValue } = this.props;
+
+    if (showSearch || this.isMultiple) {
+      // 搜索模式下选择后是否需要重置搜索状态
+      if (autoClearSearchValue !== false) {
+        this.setState({ filterChildren: null }, () =&gt; {
+          // 搜索成功后重新设置列表的总高度
+          this.setSuperDrowDownMenu(true);
+        });
+      }
+    }
+
+    this.setState({ value });
+    if(onChange){
+      onChange(value, opt);
+    }
+  };
+
+  onSearch = v =&gt; {
+    const { showSearch, onSearch, filterOption, children } = this.props;
+
+    if (showSearch &amp;&amp; filterOption !== false) {
+      // 须根据 filterOption（如有该自定义函数）手动 filter 搜索匹配的列表
+      let filterChildren = null;
+      if (typeof filterOption === &quot;function&quot;) {
+        filterChildren = children.filter(item =&gt; filterOption(v, item));
+      } else if (filterOption === undefined) {
+        filterChildren = children.filter(item =&gt; this.filterOption(v, item));
+      }
+
+      // 设置下拉列表显示数据
+      this.setState(
+        { filterChildren: v === &quot;&quot; ? null : filterChildren },
+        () =&gt; {
+          // 搜索成功后需要重新设置列表的总高度
+          this.setSuperDrowDownMenu(true);
+        }
+      );
+    }
+    if(onSearch){
+      onSearch(v);
+    }
+  };
+
+  filterOption = (v, option) =&gt; {
+    // 自定义过滤对应的 option 属性配置
+    const filterProps = this.props.optionFilterProp || &quot;value&quot;;
+    return `${option.props[filterProps]}`.indexOf(v) &gt;= 0;
+  };
+
+  removeEvent = () =&gt; {
+    if (!this.scrollEle) {
+      return;
+    }
+    this.scrollEle.removeEventListener(&quot;scroll&quot;, this.onScroll, false);
+    if (!this.inputEle) {
+      return;
+    }
+    this.inputEle.removeEventListener(&quot;keydown&quot;, this.onKeyDown, false);
+  };
+
+  render() {
+    let {
+      dropdownStyle,
+      optionLabelProp,
+      notFoundContent,
+      ...props
+    } = this.props;
+
+    this.allList = this.getUseChildrenList();
+
+    this.allHeight = this.allList.length * this.ITEM_HEIGHT || 100;
+    const { startIndex, endIndex } = this.getStartAndEndIndex();
+
+    dropdownStyle = {
+      maxHeight: `${DROPDOWN_HEIGHT}px`,
+      ...dropdownStyle,
+      overflow: &quot;auto&quot;,
+      position: &quot;relative&quot;
+    };
+
+    const { value } = this.state;
+    // 判断处于 antd Form 中时不自动设置 value
+    const newProps = { ...props };
+    // 先删除 value，再手动赋值，防止空 value 影响 placeholder
+    delete newProps.value;
+
+    // value 为空字符会隐藏 placeholder，改为 undefined
+    if (typeof value === &quot;string&quot; &amp;&amp; !value) {
+      newProps.value = undefined;
+    } else {
+      newProps.value = value;
+    }
+
+    optionLabelProp = optionLabelProp || &quot;children&quot;;
+
+    return (
+      &lt;Select
+        {...newProps}
+        id={this.id}
+        onSearch={this.onSearch}
+        onChange={this.onChange}
+        dropdownClassName={this.dropdownClassName}
+        optionLabelProp={optionLabelProp}
+        dropdownStyle={dropdownStyle}
+        onDropdownVisibleChange={this.setSuperDrowDownMenu}
+        onDeselect={this.onDeselect}
+        ref={ele =&gt; (this.select = ele)}
+        dropdownRender={menu =&gt; (
+          &lt;DropDownWrap
+            {...{
+              startIndex,
+              endIndex,
+              allHeight: this.allHeight,
+              menu,
+              itemHeight: this.ITEM_HEIGHT
+            }}
+            ref={ele =&gt; (this.wrap = ele)}
+          /&gt;
+        )}
+      &gt;
+        {this.allList}
+      &lt;/Select&gt;
+    );
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:23,&quot;character&quot;:14,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:24,&quot;character&quot;:10,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:26,&quot;character&quot;:12,&quot;text&quot;:&quot;mode&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:26,&quot;character&quot;:18,&quot;text&quot;:&quot;defaultValue&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:26,&quot;character&quot;:32,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:34,&quot;character&quot;:6,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:34,&quot;character&quot;:16,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:34,&quot;character&quot;:22,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:39,&quot;character&quot;:39,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:39,&quot;character&quot;:45,&quot;text&quot;:&quot;size&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:66,&quot;character&quot;:21,&quot;text&quot;:&quot;prevProps&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:67,&quot;character&quot;:12,&quot;text&quot;:&quot;mode&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:67,&quot;character&quot;:18,&quot;text&quot;:&quot;defaultValue&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:67,&quot;character&quot;:32,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:68,&quot;character&quot;:8,&quot;text&quot;:&quot;prevProps&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:68,&quot;character&quot;:18,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:76,&quot;character&quot;:8,&quot;text&quot;:&quot;prevProps&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:76,&quot;character&quot;:18,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:76,&quot;character&quot;:28,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:97,&quot;character&quot;:10,&quot;text&quot;:&quot;index&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:97,&quot;character&quot;:37,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:97,&quot;character&quot;:45,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:97,&quot;character&quot;:50,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:99,&quot;character&quot;:33,&quot;text&quot;:&quot;index&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:106,&quot;character&quot;:17,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:108,&quot;character&quot;:28,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:130,&quot;character&quot;:14,&quot;text&quot;:&quot;e&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:131,&quot;character&quot;:12,&quot;text&quot;:&quot;keyCode&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:142,&quot;character&quot;:30,&quot;text&quot;:&quot;keyCode&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:143,&quot;character&quot;:32,&quot;text&quot;:&quot;keyCode&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:181,&quot;character&quot;:9,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:186,&quot;character&quot;:27,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:186,&quot;character&quot;:35,&quot;text&quot;:&quot;length&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:202,&quot;character&quot;:69,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:217,&quot;character&quot;:25,&quot;text&quot;:&quot;visible&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:218,&quot;character&quot;:9,&quot;text&quot;:&quot;visible&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:222,&quot;character&quot;:9,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:224,&quot;character&quot;:14,&quot;text&quot;:&quot;eventTimer&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:225,&quot;character&quot;:11,&quot;text&quot;:&quot;eventTimer&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:227,&quot;character&quot;:29,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:227,&quot;character&quot;:37,&quot;text&quot;:&quot;length&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:236,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:237,&quot;character&quot;:12,&quot;text&quot;:&quot;onDeselect&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:239,&quot;character&quot;:7,&quot;text&quot;:&quot;onDeselect&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:240,&quot;character&quot;:6,&quot;text&quot;:&quot;onDeselect&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:240,&quot;character&quot;:17,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:245,&quot;character&quot;:14,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:245,&quot;character&quot;:21,&quot;text&quot;:&quot;opt&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:246,&quot;character&quot;:12,&quot;text&quot;:&quot;showSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:246,&quot;character&quot;:24,&quot;text&quot;:&quot;onChange&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:246,&quot;character&quot;:34,&quot;text&quot;:&quot;autoClearSearchValue&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:248,&quot;character&quot;:8,&quot;text&quot;:&quot;showSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:250,&quot;character&quot;:10,&quot;text&quot;:&quot;autoClearSearchValue&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:258,&quot;character&quot;:20,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:259,&quot;character&quot;:7,&quot;text&quot;:&quot;onChange&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:260,&quot;character&quot;:6,&quot;text&quot;:&quot;onChange&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:260,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:260,&quot;character&quot;:22,&quot;text&quot;:&quot;opt&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:264,&quot;character&quot;:13,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:265,&quot;character&quot;:12,&quot;text&quot;:&quot;showSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:265,&quot;character&quot;:24,&quot;text&quot;:&quot;onSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:265,&quot;character&quot;:34,&quot;text&quot;:&quot;filterOption&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:267,&quot;character&quot;:8,&quot;text&quot;:&quot;showSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:267,&quot;character&quot;:22,&quot;text&quot;:&quot;filterOption&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:269,&quot;character&quot;:10,&quot;text&quot;:&quot;filterChildren&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:270,&quot;character&quot;:17,&quot;text&quot;:&quot;filterOption&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:271,&quot;character&quot;:8,&quot;text&quot;:&quot;filterChildren&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:271,&quot;character&quot;:41,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:271,&quot;character&quot;:49,&quot;text&quot;:&quot;filterOption&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:271,&quot;character&quot;:62,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:271,&quot;character&quot;:65,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:272,&quot;character&quot;:17,&quot;text&quot;:&quot;filterOption&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:273,&quot;character&quot;:8,&quot;text&quot;:&quot;filterChildren&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:273,&quot;character&quot;:41,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:273,&quot;character&quot;:67,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:273,&quot;character&quot;:70,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:278,&quot;character&quot;:10,&quot;text&quot;:&quot;filterChildren&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:278,&quot;character&quot;:26,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:278,&quot;character&quot;:44,&quot;text&quot;:&quot;filterChildren&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:285,&quot;character&quot;:7,&quot;text&quot;:&quot;onSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:286,&quot;character&quot;:6,&quot;text&quot;:&quot;onSearch&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:286,&quot;character&quot;:15,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:290,&quot;character&quot;:18,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:290,&quot;character&quot;:21,&quot;text&quot;:&quot;option&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:292,&quot;character&quot;:10,&quot;text&quot;:&quot;filterProps&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:292,&quot;character&quot;:35,&quot;text&quot;:&quot;optionFilterProp&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:293,&quot;character&quot;:14,&quot;text&quot;:&quot;option&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:293,&quot;character&quot;:21,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:293,&quot;character&quot;:27,&quot;text&quot;:&quot;filterProps&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:309,&quot;character&quot;:6,&quot;text&quot;:&quot;dropdownStyle&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:310,&quot;character&quot;:6,&quot;text&quot;:&quot;optionLabelProp&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:311,&quot;character&quot;:6,&quot;text&quot;:&quot;notFoundContent&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:315,&quot;character&quot;:9,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:317,&quot;character&quot;:26,&quot;text&quot;:&quot;allList&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:317,&quot;character&quot;:34,&quot;text&quot;:&quot;length&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:320,&quot;character&quot;:4,&quot;text&quot;:&quot;dropdownStyle&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:322,&quot;character&quot;:9,&quot;text&quot;:&quot;dropdownStyle&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:331,&quot;character&quot;:20,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:335,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:337,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:340,&quot;character&quot;:4,&quot;text&quot;:&quot;optionLabelProp&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:340,&quot;character&quot;:22,&quot;text&quot;:&quot;optionLabelProp&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\index.js&quot;,&quot;line&quot;:367,&quot;character&quot;:14,&quot;text&quot;:&quot;allList&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

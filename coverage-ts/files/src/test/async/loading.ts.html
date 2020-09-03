@@ -1,0 +1,81 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>loading.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\test\async\loading.ts</td><td class="">81.71%</td><td class="">80%</td><td class="">82</td><td class="">67</td><td class="">15</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">export const param = () =&gt; {
+  return function(
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
+    var fn = descriptor.value;
+    descriptor.value = async function(...args: any[]) {
+      // @ts-ignore
+      let type = `${this.__proto__.constructor.name}/${propertyKey}`;
+      args.map(value =&gt; {
+        let payload = {
+          type: type,
+          payload: value
+        };
+
+        //@ts-ignore
+        if (this.__proto__[propertyKey]) {
+          //@ts-ignore
+          this.__proto__[propertyKey].toString = () =&gt; type;
+
+          //@ts-ignore
+          this.middleware.fetchParams(payload);
+        }
+      });
+      await fn.apply(this, args);
+    };
+  };
+};
+
+export const loading = () =&gt; {
+  return function(
+    target: any,
+    propertyKey: string,
+    descriptor: PropertyDescriptor
+  ) {
+    var fn = descriptor.value;
+    descriptor.value = async function(...args: any[]) {
+      //@ts-ignore
+      let type = `${this.__proto__.constructor.name}/${propertyKey}`;
+      let reqPayload = {
+        type: type,
+        payload: true
+      };
+      let resPayload = {
+        type: type,
+        payload: false
+      };
+
+      // @ts-ignore
+      if (this.__proto__[propertyKey]) {
+        //@ts-ignore
+        this.__proto__[propertyKey].toString = () =&gt; type;
+
+        // @ts-ignore
+        const {fetchReq, fetchRes} = this.middleware;
+
+        fetchReq(reqPayload);
+        await fn.apply(this, args);
+        fetchRes(resPayload);
+      }
+    };
+  };
+};</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:2,&quot;character&quot;:4,&quot;text&quot;:&quot;target&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:6,&quot;character&quot;:8,&quot;text&quot;:&quot;fn&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:6,&quot;character&quot;:24,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:7,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:10,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:13,&quot;character&quot;:10,&quot;text&quot;:&quot;payload&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:13,&quot;character&quot;:19,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:25,&quot;character&quot;:12,&quot;text&quot;:&quot;fn&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:25,&quot;character&quot;:15,&quot;text&quot;:&quot;apply&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:32,&quot;character&quot;:4,&quot;text&quot;:&quot;target&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:36,&quot;character&quot;:8,&quot;text&quot;:&quot;fn&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:36,&quot;character&quot;:24,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:37,&quot;character&quot;:15,&quot;text&quot;:&quot;value&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:58,&quot;character&quot;:14,&quot;text&quot;:&quot;fn&quot;},{&quot;file&quot;:&quot;src\\test\\async\\loading.ts&quot;,&quot;line&quot;:58,&quot;character&quot;:17,&quot;text&quot;:&quot;apply&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:52 GMT</p>
+    </body>
+  </html>
+  

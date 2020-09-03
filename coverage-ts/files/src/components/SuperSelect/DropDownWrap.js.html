@@ -1,0 +1,75 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>DropDownWrap.js</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="negative"><td class="">src\components\SuperSelect\DropDownWrap.js</td><td class="">40.91%</td><td class="">80%</td><td class="">88</td><td class="">36</td><td class="">52</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import React, { PureComponent } from &quot;react&quot;;
+
+export default class DropDownWrap extends PureComponent {
+  constructor(props) {
+    super(props);
+    const { allHeight, startIndex, endIndex } = props;
+
+    this.state = {
+      allHeight,
+      startIndex,
+      endIndex
+    };
+  }
+
+  getItemStyle = i =&gt; {
+    const { itemHeight } = this.props;
+    return {
+      position: &quot;absolute&quot;,
+      top: itemHeight * i,
+      height: itemHeight,
+      width: &quot;100%&quot;
+    };
+  };
+
+  reactList = (allHeight, startIndex, endIndex) =&gt;
+    this.setState({ allHeight, startIndex, endIndex });
+
+  render() {
+    const { menu } = this.props;
+    const { startIndex, endIndex, allHeight } = this.state;
+    // 截取 Select 下拉列表中需要显示的部分
+    const cloneMenu = React.cloneElement(menu, {
+      menuItems: menu.props.menuItems
+        .slice(startIndex, endIndex)
+        .map((item, i) =&gt; {
+          const realIndex = (startIndex || 0) + Number(i);
+          const style = this.getItemStyle(realIndex);
+
+          // 未搜到数据提示高度使用默认高度
+          if (item.key === &quot;NOT_FOUND&quot;) {
+            delete style.height;
+          }
+          return React.cloneElement(item, {
+            style: { ...item.style, ...style }
+          });
+        }),
+      dropdownMenuStyle: {
+        ...menu.props.dropdownMenuStyle,
+        height: allHeight,
+        maxHeight: allHeight,
+        overflow: &quot;hidden&quot;
+      }
+    });
+
+    return cloneMenu;
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:3,&quot;character&quot;:14,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:4,&quot;character&quot;:10,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:5,&quot;character&quot;:12,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:5,&quot;character&quot;:23,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:5,&quot;character&quot;:35,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:8,&quot;character&quot;:6,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:9,&quot;character&quot;:6,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:10,&quot;character&quot;:6,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:14,&quot;character&quot;:17,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:15,&quot;character&quot;:12,&quot;text&quot;:&quot;itemHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:18,&quot;character&quot;:11,&quot;text&quot;:&quot;itemHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:18,&quot;character&quot;:24,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:19,&quot;character&quot;:6,&quot;text&quot;:&quot;height&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:19,&quot;character&quot;:14,&quot;text&quot;:&quot;itemHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:24,&quot;character&quot;:15,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:24,&quot;character&quot;:26,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:24,&quot;character&quot;:38,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:25,&quot;character&quot;:20,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:25,&quot;character&quot;:31,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:25,&quot;character&quot;:43,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:28,&quot;character&quot;:12,&quot;text&quot;:&quot;menu&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:29,&quot;character&quot;:12,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:29,&quot;character&quot;:24,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:29,&quot;character&quot;:34,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:32,&quot;character&quot;:6,&quot;text&quot;:&quot;menuItems&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:32,&quot;character&quot;:17,&quot;text&quot;:&quot;menu&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:32,&quot;character&quot;:22,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:32,&quot;character&quot;:28,&quot;text&quot;:&quot;menuItems&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:33,&quot;character&quot;:9,&quot;text&quot;:&quot;slice&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:33,&quot;character&quot;:15,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:33,&quot;character&quot;:27,&quot;text&quot;:&quot;endIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:34,&quot;character&quot;:9,&quot;text&quot;:&quot;map&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:34,&quot;character&quot;:14,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:34,&quot;character&quot;:20,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:35,&quot;character&quot;:16,&quot;text&quot;:&quot;realIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:35,&quot;character&quot;:29,&quot;text&quot;:&quot;startIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:35,&quot;character&quot;:55,&quot;text&quot;:&quot;i&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:36,&quot;character&quot;:42,&quot;text&quot;:&quot;realIndex&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:39,&quot;character&quot;:14,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:39,&quot;character&quot;:19,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:40,&quot;character&quot;:25,&quot;text&quot;:&quot;height&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:43,&quot;character&quot;:12,&quot;text&quot;:&quot;style&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:43,&quot;character&quot;:24,&quot;text&quot;:&quot;item&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:43,&quot;character&quot;:29,&quot;text&quot;:&quot;style&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:46,&quot;character&quot;:6,&quot;text&quot;:&quot;dropdownMenuStyle&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:47,&quot;character&quot;:11,&quot;text&quot;:&quot;menu&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:47,&quot;character&quot;:16,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:47,&quot;character&quot;:22,&quot;text&quot;:&quot;dropdownMenuStyle&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:48,&quot;character&quot;:8,&quot;text&quot;:&quot;height&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:48,&quot;character&quot;:16,&quot;text&quot;:&quot;allHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:49,&quot;character&quot;:8,&quot;text&quot;:&quot;maxHeight&quot;},{&quot;file&quot;:&quot;src\\components\\SuperSelect\\DropDownWrap.js&quot;,&quot;line&quot;:49,&quot;character&quot;:19,&quot;text&quot;:&quot;allHeight&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

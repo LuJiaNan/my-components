@@ -1,0 +1,254 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>InlineComponentPage.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\pages\InlineComponentPage.tsx</td><td class="">97.12%</td><td class="">80%</td><td class="">139</td><td class="">135</td><td class="">4</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import * as React from &quot;react&quot;;
+import InlineComponent from &quot;../components/InlineComponents&quot;;
+import { ValidateErrorEntity } from &quot;rc-field-form/es/interface&quot;;
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  // Checkbox
+} from &quot;antd&quot;;
+
+// const layout1 = {
+//   labelCol: { span: 4 },
+// };
+// const layout2 = {
+//   labelCol: { span: 8 },
+// };
+const Item = Form.Item;
+// class Index extends React.Component {
+//   render() {
+//     let config = {
+//       type: &quot;normal&quot;,
+//       // inlineNumber: 2,
+//       // inlineNumber: [1,2,2], // 正常情况
+//       // inlineNumber: [1,2,5], // 超长情况
+//       inlineNumber: [1, 1], // 不足情况
+//       name: &quot;form1&quot;,
+//       className: &quot;&quot;,
+//       // footer: (
+//       //   &lt;Button type=&quot;danger&quot; htmlType=&quot;submit&quot;&gt;
+//       //     提交
+//       //   &lt;/Button&gt;
+//       // ),
+//       data: [
+//         {
+//           label: &quot;input1&quot;,
+//           name: &quot;name1&quot;,
+//           render: Input,
+//           ...layout1,
+//           rules: [{ required: true, message: &quot;Please input input1!&quot; }],
+//           config: {
+//             placeholder: &quot;i am input 1&quot;,
+//           },
+//         },
+//         {
+//           label: &quot;input2&quot;,
+//           name: &quot;name2&quot;,
+//           render: Input,
+//           ...layout1,
+//           defaultValue: &quot;input&quot;,
+//           rules: [{ required: true, message: &quot;Please input input2!&quot; }],
+//           config: {
+//             placeholder: &quot;i am input 2&quot;,
+//             size: &quot;small&quot;,
+//           },
+//         },
+//         {
+//           label: &quot;select1ssss&quot;,
+//           name: &quot;name3&quot;,
+//           render: Select,
+//           ...layout2,
+//           rules: [{ required: true, message: &quot;Please select select1!&quot; }],
+//           config: {
+//             placeholder: &quot;i am select 1&quot;,
+//             width: &quot;150px&quot;,
+//             options: [
+//               {
+//                 label: &quot;option1&quot;,
+//                 value: &quot;option1&quot;,
+//               },
+//               {
+//                 label: &quot;option2&quot;,
+//                 value: &quot;option2&quot;,
+//               },
+//               {
+//                 label: &quot;option3&quot;,
+//                 value: &quot;option3&quot;,
+//               },
+//             ],
+//           },
+//         },
+//         {
+//           label: &quot;input4&quot;,
+//           name: &quot;name4&quot;,
+//           render: Input,
+//           ...layout2,
+//           defaultValue: &quot;input&quot;,
+//           rules: [{ required: true, message: &quot;Please input input4!&quot; }],
+//           config: {
+//             placeholder: &quot;i am input 4&quot;,
+//             size: &quot;small&quot;,
+//           },
+//         },
+//         {
+//           label: &quot;input5&quot;,
+//           name: &quot;name5&quot;,
+//           render: Input,
+//           ...layout2,
+//           defaultValue: &quot;input&quot;,
+//           rules: [{ required: true, message: &quot;Please input input5!&quot; }],
+//           config: {
+//             placeholder: &quot;i am input 5&quot;,
+//           },
+//         },
+//         {
+//           label: &quot;checkbox6&quot;,
+//           name: &quot;checkbox6&quot;,
+//           render: Checkbox,
+//           ...layout2,
+//           config: {
+//             checked: &quot;true&quot;,
+//             onChange: (e:any) =&gt; console.log(e)
+//           }
+//         },
+//       ],
+//     };
+//     return &lt;InlineComponent {...config} /&gt;;
+//   }
+// }
+
+interface InlineProps {
+  data: object[];
+  footer?: React.ReactNode;
+  className?: string;
+  inlineNumber?: any;
+  name: string;
+}
+
+interface InlineState {
+  initialValues: any;
+}
+
+class Index extends React.Component&lt;InlineProps, InlineState&gt; {
+  // 事件
+  onFinish = (values: any) =&gt; {
+    console.log(&quot;Success:&quot;, values);
+  };
+
+  onFinishFailed = (errorInfo: ValidateErrorEntity) =&gt; {
+    console.log(&quot;Failed:&quot;, errorInfo);
+  };
+
+  renderBody() {
+    const config = {
+      // inlineNumber: 3
+      inlineNumber: [1, 2, 3],
+      // inlineNumber: [5]
+    };
+    return (
+      &lt;InlineComponent {...config}&gt;
+        &lt;Item
+          label={&quot;input1&quot;}
+          name={&quot;input1&quot;}
+          rules={[{ required: true, message: &quot;Please input input1!&quot; }]}
+        &gt;
+          &lt;Input /&gt;
+        &lt;/Item&gt;
+        &lt;Item
+          label={&quot;input2&quot;}
+          name={&quot;input2&quot;}
+          rules={[{ required: true, message: &quot;Please input input2!&quot; }]}
+        &gt;
+          &lt;Input /&gt;
+        &lt;/Item&gt;
+        &lt;Item
+          label={&quot;input3&quot;}
+          name={&quot;input3&quot;}
+          rules={[{ required: true, message: &quot;Please input input3!&quot; }]}
+        &gt;
+          &lt;Input /&gt;
+        &lt;/Item&gt;
+        &lt;Item
+          label={&quot;input4&quot;}
+          name={&quot;input4&quot;}
+          rules={[{ required: true, message: &quot;Please input input4!&quot; }]}
+        &gt;
+          &lt;Input /&gt;
+        &lt;/Item&gt;
+        &lt;Item
+          label={&quot;input5&quot;}
+          name={&quot;input5&quot;}
+          rules={[{ required: true, message: &quot;Please input input5!&quot; }]}
+        &gt;
+          &lt;Input /&gt;
+        &lt;/Item&gt;
+        &lt;Item
+          label={&quot;select6&quot;}
+          name={&quot;select6&quot;}
+          rules={[{ required: true, message: &quot;Please select6!&quot; }]}
+        &gt;
+          &lt;Select
+            allowClear={true}
+            // mode=&quot;tags&quot;
+            // menuItemSelectedIcon={&lt;span&gt;aaa&lt;/span&gt;}
+            // clearIcon={&lt;div&gt;bbb&lt;/div&gt;}
+            // removeIcon={&lt;div&gt;ccc&lt;/div&gt;}
+          &gt;
+            &lt;Select.Option value=&quot;option1&quot;&gt;option1&lt;/Select.Option&gt;
+            &lt;Select.Option value=&quot;option2&quot;&gt;option2&lt;/Select.Option&gt;
+            &lt;Select.Option value=&quot;option3&quot;&gt;option3&lt;/Select.Option&gt;
+          &lt;/Select&gt;
+        &lt;/Item&gt;
+      &lt;/InlineComponent&gt;
+    );
+  }
+  renderFooter() {
+    const { footer } = this.props;
+    const defaultFooter = (
+      &lt;Button type=&quot;primary&quot; htmlType=&quot;submit&quot;&gt;
+        Submit
+      &lt;/Button&gt;
+    );
+    return footer || defaultFooter;
+  }
+  render() {
+    return (
+      &lt;Form
+        name=&quot;myform&quot;
+        onFinish={this.onFinish}
+        onFinishFailed={this.onFinishFailed}
+        className={`inlineComponent`}
+        initialValues={{
+          input1: &#x27;i am input1&#x27;,
+          input3: &#x27;i am input3&#x27;,
+          input5: &#x27;i am input5&#x27;,
+          select6: &#x27;option3&#x27;
+        }}
+      &gt;
+        {this.renderBody()}
+        {this.renderFooter()}
+      &lt;/Form&gt;
+    );
+  }
+}
+
+export default Index;
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\pages\\InlineComponentPage.tsx&quot;,&quot;line&quot;:124,&quot;character&quot;:2,&quot;text&quot;:&quot;inlineNumber&quot;},{&quot;file&quot;:&quot;src\\pages\\InlineComponentPage.tsx&quot;,&quot;line&quot;:129,&quot;character&quot;:2,&quot;text&quot;:&quot;initialValues&quot;},{&quot;file&quot;:&quot;src\\pages\\InlineComponentPage.tsx&quot;,&quot;line&quot;:134,&quot;character&quot;:14,&quot;text&quot;:&quot;values&quot;},{&quot;file&quot;:&quot;src\\pages\\InlineComponentPage.tsx&quot;,&quot;line&quot;:135,&quot;character&quot;:28,&quot;text&quot;:&quot;values&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

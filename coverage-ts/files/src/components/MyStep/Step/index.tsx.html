@@ -1,0 +1,81 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\components\MyStep\Step\index.tsx</td><td class="">83.00%</td><td class="">80%</td><td class="">100</td><td class="">83</td><td class="">17</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import * as React from &quot;react&quot;;
+import { useState, useEffect } from &quot;react&quot;;
+import { Steps } from &quot;antd&quot;;
+import StepProps from &quot;../index&quot;;
+
+const defaultProps: StepProps = {
+  steps: [],
+  location: {
+    pathname: &quot;&quot;
+  },
+  history: {
+    push() {}
+  }
+};
+
+const ref: any = React.createRef();
+
+const Step: React.FC&lt;StepProps&gt; = props =&gt; {
+  // 根据路由初始化步骤
+  props = Object.assign({}, defaultProps, props);
+  const currentStepRoute = props.location.pathname.slice(1);
+
+  let currentStepNum = 0;
+  props.steps.map((v, index) =&gt; {
+    if (currentStepRoute.indexOf(v.path) &gt; -1) {
+      currentStepNum = index + 1;
+    }
+  });
+  const [step, goRoutes] = useState(currentStepNum);
+  const getCurrentStep = () =&gt; step;
+
+  const currentIndex = step - 1;
+  const { steps } = props;
+  const renderDom = props.steps[currentIndex];
+  useEffect(() =&gt; {
+    props.history.push(steps[currentIndex].path);
+  }, [step]);
+
+  return (
+    &lt;React.Fragment&gt;
+      &lt;Steps current={currentIndex}&gt;
+        {steps.map((item: { text: string; description: string }) =&gt; (
+          &lt;Steps.Step
+            key={item.text}
+            title={item.text}
+            description={item.description}
+          /&gt;
+        ))}
+      &lt;/Steps&gt;
+
+      {React.createElement(renderDom.component, {
+        ...props,
+        ref,
+        goRoutes,
+        getCurrentStep
+      })}
+    &lt;/React.Fragment&gt;
+  );
+};
+
+Step.defaultProps = defaultProps;
+
+export default Step;
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:15,&quot;character&quot;:6,&quot;text&quot;:&quot;ref&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:8,&quot;text&quot;:&quot;currentStepRoute&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:33,&quot;text&quot;:&quot;location&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:42,&quot;text&quot;:&quot;pathname&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:51,&quot;text&quot;:&quot;slice&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:23,&quot;character&quot;:19,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:24,&quot;character&quot;:8,&quot;text&quot;:&quot;currentStepRoute&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:24,&quot;character&quot;:25,&quot;text&quot;:&quot;indexOf&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:24,&quot;character&quot;:33,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:24,&quot;character&quot;:35,&quot;text&quot;:&quot;path&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:33,&quot;character&quot;:8,&quot;text&quot;:&quot;renderDom&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:35,&quot;character&quot;:10,&quot;text&quot;:&quot;history&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:35,&quot;character&quot;:18,&quot;text&quot;:&quot;push&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:35,&quot;character&quot;:43,&quot;text&quot;:&quot;path&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:50,&quot;character&quot;:27,&quot;text&quot;:&quot;renderDom&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:50,&quot;character&quot;:37,&quot;text&quot;:&quot;component&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\Step\\index.tsx&quot;,&quot;line&quot;:52,&quot;character&quot;:8,&quot;text&quot;:&quot;ref&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

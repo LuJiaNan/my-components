@@ -1,13 +1,26 @@
-// import "reflect-metadata";
 
-// @Reflect.metadata('role', 'admin')
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>test.ts</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\test\test.ts</td><td class="">100.00%</td><td class="">80%</td><td class="">29</td><td class="">29</td><td class="">0</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">// import &quot;reflect-metadata&quot;;
+
+// @Reflect.metadata(&#x27;role&#x27;, &#x27;admin&#x27;)
 // class Post {}
 
-// const metadata = Reflect.getMetadata('role', Post);
+// const metadata = Reflect.getMetadata(&#x27;role&#x27;, Post);
 
 // console.log(metadata);  // admin
 
-// @Reflect.metadata('name', 'A')
+// @Reflect.metadata(&#x27;name&#x27;, &#x27;A&#x27;)
 // class A {}
 
 // Object.getOwnPropertySymbols(A) // []
@@ -19,20 +32,20 @@
 // // Expected some or all of these to be errors
 // doSomething(window);
 // doSomething(42);
-// doSomething('huh?');
+// doSomething(&#x27;huh?&#x27;);
 
 // type SomeUrl = string;
 // type FirstName = string;
-// let x: SomeUrl = "http://www.typescriptlang.org/";
-// let y: FirstName = "Bob";
+// let x: SomeUrl = &quot;http://www.typescriptlang.org/&quot;;
+// let y: FirstName = &quot;Bob&quot;;
 // x = y; // Expected error
 
-// type SomeUrl = string & {'this is a url': {}};
-// type FirstName = string & {'person name': {}};
+// type SomeUrl = string &amp; {&#x27;this is a url&#x27;: {}};
+// type FirstName = string &amp; {&#x27;person name&#x27;: {}};
 
 // // Add type assertions
-// let x = '' as SomeUrl;
-// let y = 'bob' as FirstName;
+// let x = &#x27;&#x27; as SomeUrl;
+// let y = &#x27;bob&#x27; as FirstName;
 // // x = y; // Error
 
 // // OK
@@ -78,12 +91,12 @@
 // let t2: BarTable;
 
 // // For assignment from base-types and basic structures: no type-overloading is needed.
-// s1 = 'foo1';
+// s1 = &#x27;foo1&#x27;;
 // t1 = {};
 // t1[s1] = { foo: 1 };
 
-// s2 = 'bar1';
-// t2 = { 'bar1': { bar: 'barbar' }};
+// s2 = &#x27;bar1&#x27;;
+// t2 = { &#x27;bar1&#x27;: { bar: &#x27;barbar&#x27; }};
 
 // console.log(s2 = s1); // Proposed to be type error.
 // console.log(s2 == s1); // Proposed to be type error.
@@ -94,14 +107,14 @@
 
 // function BadFooTest(t: FooTable) {
 //   if (s2 in t) {  // Proposed to be type error.
-//     console.log('cool');
+//     console.log(&#x27;cool&#x27;);
 //     console.log(t[s2].foo); // Proposed to be type error.
 //   }
 // }
 
 // function GoodBarTest(t: BarTable) {
 //   if (s2 in t) {
-//     console.log('cool');
+//     console.log(&#x27;cool&#x27;);
 //     console.log(t[s2].bar);
 //   }
 // }
@@ -112,15 +125,15 @@
 // GoodBarTest(t2);
 
 // let x: any = true;
-// let y = x as string; // Expected: runtime error (can't convert boolean to string)
+// let y = x as string; // Expected: runtime error (can&#x27;t convert boolean to string)
 
-// let a: any = 'hmm';
+// let a: any = &#x27;hmm&#x27;;
 // let b = a as HTMLElement; // expected b === null
 
 // console.log(y)
 // console.log(b)
 
-// let myFunc: (number) => string = (n) => 'The number in hex is ' + n.toString(16);
+// let myFunc: (number) =&gt; string = (n) =&gt; &#x27;The number in hex is &#x27; + n.toString(16);
 // // Expected error because boolean is not number
 // console.log(myFunc(true));
 
@@ -135,10 +148,10 @@
 // // x = y; // Error
 
 // let c: Car = {
-//     name:'aaa'
+//     name:&#x27;aaa&#x27;
 // };
 // // Error, or not?
-// let x: { [n: string]: Car } = { 'mine': c };
+// let x: { [n: string]: Car } = { &#x27;mine&#x27;: c };
 
 // function createLog(message:string): number;
 // function createLog(source:string, message:string): number
@@ -146,8 +159,8 @@
 //   return 0;
 // }
 
-// let a = createLog("message"); // OK
-// let b = createLog("source", "message");
+// let a = createLog(&quot;message&quot;); // OK
+// let b = createLog(&quot;source&quot;, &quot;message&quot;);
 
 // console.log(a)
 // console.log(b)
@@ -159,8 +172,8 @@
 // }
 
 // compare(1,2) // OK
-// compare("s", "l") // OK
-// compare (1, "l") // Error.
+// compare(&quot;s&quot;, &quot;l&quot;) // OK
+// compare (1, &quot;l&quot;) // Error.
 
 // class Base {
 //     important: number;
@@ -203,8 +216,8 @@
 // class MyClass {
 //   x = 10;
 //   someCallback() {
-//     console.log(this.x); // Prints 'undefined', not 10
-//     this.someMethod(); // Throws error "this.method is not a function"
+//     console.log(this.x); // Prints &#x27;undefined&#x27;, not 10
+//     this.someMethod(); // Throws error &quot;this.method is not a function&quot;
 //   }
 //   someMethod() {
 
@@ -218,8 +231,8 @@
 // class MyClass {
 //   x = 10;
 //   someCallback() {
-//     console.log(this.x); // Prints 'undefined', not 10
-//     this.someMethod(); // Throws error "this.method is not a function"
+//     console.log(this.x); // Prints &#x27;undefined&#x27;, not 10
+//     this.someMethod(); // Throws error &quot;this.method is not a function&quot;
 //   }
 //   time(){
 //     global.setTimeout(this.someCallback.bind(this), 1000);
@@ -234,7 +247,7 @@
 
 // class Base {
 
-//   myVar:string = 'Base';
+//   myVar:string = &#x27;Base&#x27;;
 
 //   constructor() {
 //       console.log(this.myVar);
@@ -244,19 +257,19 @@
 
 // class Child extends Base {
 
-//   myVar:string = 'Child';
+//   myVar:string = &#x27;Child&#x27;;
 
 // }
 
-// let base:Base = new Base(); // 'Base' - As expected
-// let child:Child = new Child(); // 'Base' - I would've expected this to be 'Child'
+// let base:Base = new Base(); // &#x27;Base&#x27; - As expected
+// let child:Child = new Child(); // &#x27;Base&#x27; - I would&#x27;ve expected this to be &#x27;Child&#x27;
 
-// console.log(base.myVar); // 'Base' - As expected
-// console.log(child.myVar); // 'Child' - As expected
+// console.log(base.myVar); // &#x27;Base&#x27; - As expected
+// console.log(child.myVar); // &#x27;Child&#x27; - As expected
 
 // class Base {
 
-//   myVar:string = 'Base';
+//   myVar:string = &#x27;Base&#x27;;
 
 //   constructor() {
 //       this.setup();
@@ -270,7 +283,7 @@
 
 // class Child extends Base {
 
-//   myVar:string = 'Child';
+//   myVar:string = &#x27;Child&#x27;;
 
 //   constructor() {
 //       super();
@@ -279,18 +292,18 @@
 
 // }
 
-// // let base:Base = new Base(); // 'Base'
-// let child:Child = new Child(); // 'Child' - Now as expected
+// // let base:Base = new Base(); // &#x27;Base&#x27;
+// let child:Child = new Child(); // &#x27;Child&#x27; - Now as expected
 
-// // console.log(base.myVar); // 'Base'
-// // console.log(child.myVar); // 'Child'
+// // console.log(base.myVar); // &#x27;Base&#x27;
+// // console.log(child.myVar); // &#x27;Child&#x27;
 
 // class FooError extends Error {
 //   constructor(m: string) {
 //       super(m);
 //   }
 //   sayHello() {
-//       return "hello " + this.message;
+//       return &quot;hello &quot; + this.message;
 //   }
 // }
 
@@ -303,60 +316,60 @@
 //   }
 
 //   sayHello() {
-//       return "hello " + this.message;
+//       return &quot;hello &quot; + this.message;
 //   }
 // }
 
-// console.log(new FooError('error'))
+// console.log(new FooError(&#x27;error&#x27;))
 
-// interface Something<T> {
+// interface Something&lt;T&gt; {
 //   name: string;
 // }
-// let x: Something<number> = {
-//   name: '1'
+// let x: Something&lt;number&gt; = {
+//   name: &#x27;1&#x27;
 // };
-// let y: Something<string> = {
-//   name: '1'
+// let y: Something&lt;string&gt; = {
+//   name: &#x27;1&#x27;
 // };
-// // Expected error: Can't convert Something<number> to Something<string>!
+// // Expected error: Can&#x27;t convert Something&lt;number&gt; to Something&lt;string&gt;!
 // x = y;
 
-// interface Named<T> {
+// interface Named&lt;T&gt; {
 //   name: string;
 // }
-// class MyNamed<T> implements Named<T> {
-//   name: 'mine';
+// class MyNamed&lt;T&gt; implements Named&lt;T&gt; {
+//   name: &#x27;mine&#x27;;
 // }
-// function findByName<T>(x: Named<T>): T {
+// function findByName&lt;T&gt;(x: Named&lt;T&gt;): T {
 //   // TODO: Implement
 //   return undefined;
 // }
 
-// let x: MyNamed<string>;
+// let x: MyNamed&lt;string&gt;;
 // let y = findByName(x); // expected y: string, got y: {}
 
-// interface Named<T> {
+// interface Named&lt;T&gt; {
 //   name: string;
-//   value: T; // <-- added
+//   value: T; // &lt;-- added
 // }
-// class MyNamed<T> implements Named<T> {
-//   name: 'mine';
-//   value: T; // <-- added
+// class MyNamed&lt;T&gt; implements Named&lt;T&gt; {
+//   name: &#x27;mine&#x27;;
+//   value: T; // &lt;-- added
 // }
-// function findByName<T>(x: Named<T>): T {
+// function findByName&lt;T&gt;(x: Named&lt;T&gt;): T {
 //   // TODO: Implement
 //   return T;
 // }
 
-// let x: MyNamed<string> = {
-//   name:'mine',
-//   value: 'aaa'
+// let x: MyNamed&lt;string&gt; = {
+//   name:&#x27;mine&#x27;,
+//   value: &#x27;aaa&#x27;
 // };
 // console.log(x)
 // let y = findByName(x); // got y: string;
 
-// function doSomething<T>(x: T) {
-//   // Can't find name T?
+// function doSomething&lt;T&gt;(x: T) {
+//   // Can&#x27;t find name T?
 //   let xType = typeof T;
 //   let y = new xType();
 //   // Same here?
@@ -368,12 +381,12 @@
 
 // class MyClass {}
 
-// function create<T>(ctor: new() => T ) {
+// function create&lt;T&gt;(ctor: new() =&gt; T ) {
 //   return new ctor();
 // }
 // let c = create(MyClass); // c: MyClass
 
-// function isReallyInstanceOf<T>(ctor: new(...args: any[]) => T , obj: T) {
+// function isReallyInstanceOf&lt;T&gt;(ctor: new(...args: any[]) =&gt; T , obj: T) {
 //   return obj instanceof ctor;
 // }
 
@@ -384,8 +397,8 @@
 
 // console.log(Alpha)
 // console.log(Beta.X)
-// // console.log(Beta["0"])
-// let a = 'x'
+// // console.log(Beta[&quot;0&quot;])
+// let a = &#x27;x&#x27;
 // console.log(Gamma[a]) // Gamma is not defined
 // // console.log(Delta)
 
@@ -402,7 +415,7 @@
 
 // }
 
-// async function visitZoo(lionExhibit: Promise<Lion>, sealExhibit: Promise<Seal | undefined>) {
+// async function visitZoo(lionExhibit: Promise&lt;Lion&gt;, sealExhibit: Promise&lt;Seal | undefined&gt;) {
 
 //     let [lion, seal] = await Promise.all([lionExhibit, sealExhibit]);
 
@@ -410,13 +423,13 @@
 
 // // ~~~~
 
-// // Object is possibly 'undefined'.
+// // Object is possibly &#x27;undefined&#x27;.
 
 // }
 
 // interface A {
 
-//     a: number; // notice this is 'number'
+//     a: number; // notice this is &#x27;number&#x27;
 
 // }
 
@@ -428,28 +441,28 @@
 
 // interface C {
 
-//     a?: boolean; // notice this is 'boolean'
+//     a?: boolean; // notice this is &#x27;boolean&#x27;
 //     b: string;
 
 // }
 
-// declare let x: A & B;
+// declare let x: A &amp; B;
 // declare let y: C;
 
 // y = x;
 
-// declare function smushObjects<T, U>(x: T, y: U): T & U;
+// declare function smushObjects&lt;T, U&gt;(x: T, y: U): T &amp; U;
 
 // interface Circle {
 
-//     kind: "circle";
+//     kind: &quot;circle&quot;;
 //     radius: number;
 
 // }
 
 // interface Square {
 
-//     kind: "square";
+//     kind: &quot;square&quot;;
 //     sideLength: number;
 
 // }
@@ -460,26 +473,26 @@
 
 // console.log(z.kind);
 
-// let a = [{name:'a',age:1},{name:'b',age:2}]
-// a.map(item =>{item.name})
+// let a = [{name:&#x27;a&#x27;,age:1},{name:&#x27;b&#x27;,age:2}]
+// a.map(item =&gt;{item.name})
 
-// let x = () => {10}
+// let x = () =&gt; {10}
 
-// function foo<T extends any>(arg: T) {
+// function foo&lt;T extends any&gt;(arg: T) {
 //     arg.spfjgerijghoied(); // no error!
 // }
 
 // function f() {
-//     console.log("f(): evaluated");
-//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
-//         console.log("f(): called");
+//     console.log(&quot;f(): evaluated&quot;);
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) =&gt; {
+//         console.log(&quot;f(): called&quot;);
 //     }
 // }
 
 // function g() {
-//     console.log("g(): evaluated");
-//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) => {
-//         console.log("g(): called");
+//     console.log(&quot;g(): evaluated&quot;);
+//     return (target:any, propertyKey: string, descriptor: PropertyDescriptor) =&gt; {
+//         console.log(&quot;g(): called&quot;);
 //     }
 // }
 
@@ -499,20 +512,20 @@
 //         this.greeting = message;
 //     }
 //     greet() {
-//         return "Hello, " + this.greeting;
+//         return &quot;Hello, &quot; + this.greeting;
 //     }
 // }
 
-// function sealed(constructor: new(...args:any[]) => {}) {
+// function sealed(constructor: new(...args:any[]) =&gt; {}) {
 //     Object.seal(constructor);
 //     Object.seal(constructor.prototype);
 //     console.log(constructor)
 //     console.log(constructor.prototype);
 // }
 
-// function classDecorator<T extends new(...args:any[]) => {}>(constructor:T) {
+// function classDecorator&lt;T extends new(...args:any[]) =&gt; {}&gt;(constructor:T) {
 //     return class extends constructor {
-//         newProperty = "new property";
+//         newProperty = &quot;new property&quot;;
 //         hello = 111;
 //     }
 // }
@@ -520,14 +533,14 @@
 // // tslint:disable-next-line: max-classes-per-file
 // @classDecorator
 // class Greeter {
-//     property = "property";
+//     property = &quot;property&quot;;
 //     hello: string;
 //     constructor(m: string) {
 //         this.hello = m;
 //     }
 // }
 
-// console.log(new Greeter("world"));
+// console.log(new Greeter(&quot;world&quot;));
 
 // class Greeter {
 //     greeting: string;
@@ -540,12 +553,12 @@
 
 //     @enumerable(false)
 //     greet() {
-//         return "Hello, " + this.greeting;
+//         return &quot;Hello, &quot; + this.greeting;
 //     }
 // }
 
 // function enumerable(value: boolean) {
-//     return  (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//     return  (target: any, propertyKey: string, descriptor: PropertyDescriptor) =&gt; {
 //         descriptor.enumerable = value;
 //         descriptor.configurable = false;
 //         // descriptor.writable = false;
@@ -573,7 +586,7 @@
 // }
 
 // function configurable(value: boolean) {
-//     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+//     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) =&gt; {
 //         console.log(target)
 //         console.log(propertyKey)
 //         descriptor.configurable = value;
@@ -583,28 +596,28 @@
 // const p = new Point(1,2)
 
 // console.log(p.x)
-// p.x = '4'
+// p.x = &#x27;4&#x27;
 
 // function configurable(value:boolean){
-//     return (target: any,propertyKey:string,descriptor: PropertyDescriptor) => {
+//     return (target: any,propertyKey:string,descriptor: PropertyDescriptor) =&gt; {
 //         descriptor.configurable = value;
 //     }
 // }
 
 // class Greeter {
-//     @format("Hello, %s")
+//     @format(&quot;Hello, %s&quot;)
 //     greeting: string;
 
 //     constructor(message: string) {
 //         this.greeting = message;
 //     }
 //     greet() {
-//         let formatString = getFormat(this, "greeting");
-//         return formatString.replace("%s", this.greeting);
+//         let formatString = getFormat(this, &quot;greeting&quot;);
+//         return formatString.replace(&quot;%s&quot;, this.greeting);
 //     }
 // }
 
-// const formatMetadataKey = Symbol("format");
+// const formatMetadataKey = Symbol(&quot;format&quot;);
 
 // function format(formatString: string) {
 //     return Reflect.metadata(formatMetadataKey, formatString);
@@ -614,7 +627,7 @@
 //     return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
 // }
 
-// const g = new Greeter('msg')
+// const g = new Greeter(&#x27;msg&#x27;)
 // console.log(g)
 
 // 交叉类型和继承，以及ReactNode和ReactElement
@@ -628,10 +641,10 @@
 //   weight: number;
 //   age: string;
 // }
-// const C: A & B = {
-//   name: "",
+// const C: A &amp; B = {
+//   name: &quot;&quot;,
 //   age: 1,
-//   sex: "",
+//   sex: &quot;&quot;,
 //   weight: 2,
 // };
 
@@ -647,9 +660,9 @@
 // }
 
 // const E: D = {
-//   name: "",
-//   age: "",
-//   sex: "",
+//   name: &quot;&quot;,
+//   age: &quot;&quot;,
+//   sex: &quot;&quot;,
 //   weight: 23,
 // };
 
@@ -660,11 +673,11 @@
 
 // const aaa: node = {
 //   a: {
-//     type: "",
+//     type: &quot;&quot;,
 //     props: {},
 //     key: null,
 //   },
-//   b: "",
+//   b: &quot;&quot;,
 // };
 
 // this 连贯接口继承
@@ -701,8 +714,8 @@
 // let v2 = new ScientificCalculator(2).multiply(5).sin().add(1).currentValue();
 // console.log(v2)
 
-// function pluck<T, K extends keyof T>(o: T, names: K[]): T[K][] {
-//   return names.map((n) => o[n]);
+// function pluck&lt;T, K extends keyof T&gt;(o: T, names: K[]): T[K][] {
+//   return names.map((n) =&gt; o[n]);
 // }
 
 // interface Person {
@@ -711,68 +724,68 @@
 //   sex: string;
 // }
 // let person: Person = {
-//   name: "Jarid",
+//   name: &quot;Jarid&quot;,
 //   age: 35,
-//   sex: 'man'
+//   sex: &#x27;man&#x27;
 // };
-// let strings: string[] = pluck(person, ["name","sex"]); // [ 'Jarid', 'man' ]
+// let strings: string[] = pluck(person, [&quot;name&quot;,&quot;sex&quot;]); // [ &#x27;Jarid&#x27;, &#x27;man&#x27; ]
 
 // console.log(strings)
 
-// type petsGroup = 'dog' | 'cat' | 'fish';
+// type petsGroup = &#x27;dog&#x27; | &#x27;cat&#x27; | &#x27;fish&#x27;;
 // interface IPetInfo {
 //     name:string,
 //     age:number,
 // }
 
-// type IPets = Record<petsGroup, IPetInfo>;
+// type IPets = Record&lt;petsGroup, IPetInfo&gt;;
 
 // const animalsInfo:IPets = {
 //     dog:{
-//         name:'dogName',
+//         name:&#x27;dogName&#x27;,
 //         age:2
 //     },
 //     cat:{
-//         name:'catName',
+//         name:&#x27;catName&#x27;,
 //         age:3
 //     },
 //     fish:{
-//         name:'fishName',
+//         name:&#x27;fishName&#x27;,
 //         age:5
 //     }
 // }
 
 // returnType使用
 // function fn(): string {
-//     return 'aaaa'
+//     return &#x27;aaaa&#x27;
 // }
 
 // function f1(s: string) {
 //     return { a: 1, b: s };
 // }
 
-// const returnType1:ReturnType<typeof fn> = 1
-// const returnType2:ReturnType<typeof f1> = {
+// const returnType1:ReturnType&lt;typeof fn&gt; = 1
+// const returnType2:ReturnType&lt;typeof f1&gt; = {
 //     a:555,
-//     b:'ssss'
+//     b:&#x27;ssss&#x27;
 // }
 
-// type Unpacked<T> =
-//     T extends Array<infer U> ? U :
-//     T extends (...args: any[]) => infer U ? U :
-//     T extends Promise<infer U> ? U :
+// type Unpacked&lt;T&gt; =
+//     T extends Array&lt;infer U&gt; ? U :
+//     T extends (...args: any[]) =&gt; infer U ? U :
+//     T extends Promise&lt;infer U&gt; ? U :
 //     T;
 
-// type T0 = Unpacked<string>;  // string
-// type T1 = Unpacked<string[]>;  // string
-// type T2 = Unpacked<() => string>;  // string
-// type T3 = Unpacked<Promise<string>>;  // string
-// type T4 = Unpacked<Array<Promise<string>>>;  // Promise<string>
-// type T5 = Unpacked<Unpacked<Array<Promise<string>>>>;  // string
+// type T0 = Unpacked&lt;string&gt;;  // string
+// type T1 = Unpacked&lt;string[]&gt;;  // string
+// type T2 = Unpacked&lt;() =&gt; string&gt;;  // string
+// type T3 = Unpacked&lt;Promise&lt;string&gt;&gt;;  // string
+// type T4 = Unpacked&lt;Array&lt;Promise&lt;string&gt;&gt;&gt;;  // Promise&lt;string&gt;
+// type T5 = Unpacked&lt;Unpacked&lt;Array&lt;Promise&lt;string&gt;&gt;&gt;&gt;;  // string
 
-// type Foo<T> = T extends { a: infer U, b: infer U } ? U : never;
-// type T10 = Foo<{ a: string, b: string }>;  // string
-// type T11 = Foo<{ a: string, b: number }>;  // string | number
+// type Foo&lt;T&gt; = T extends { a: infer U, b: infer U } ? U : never;
+// type T10 = Foo&lt;{ a: string, b: string }&gt;;  // string
+// type T11 = Foo&lt;{ a: string, b: number }&gt;;  // string | number
 
 // interface Point {
 //   x: number;
@@ -794,11 +807,11 @@
 
 // class ExampleOne {
 //     hi() {
-//         alert('Hi');
+//         alert(&#x27;Hi&#x27;);
 //     }
 // }
 
-// class Creator<T> {
+// class Creator&lt;T&gt; {
 //     constructor() {
 
 //     }
@@ -807,24 +820,24 @@
 //     }
 // }
 
-// let creator = new Creator<ExampleOne>();
+// let creator = new Creator&lt;ExampleOne&gt;();
 
 // let example = creator.getNew();
 // example.hi();
 
 // class ExampleOne {
 //     hi() {
-//         console.log('Hi');
+//         console.log(&#x27;Hi&#x27;);
 //     }
 // }
 
-// // interface ParameterlessConstructor<T> {
+// // interface ParameterlessConstructor&lt;T&gt; {
 // //     new(): T;
 // // }
-// type ParameterlessConstructor<T> = new() => T;
+// type ParameterlessConstructor&lt;T&gt; = new() =&gt; T;
 
-// class Creator<T> {
-//     constructor(private ctor: ParameterlessConstructor<T>) {
+// class Creator&lt;T&gt; {
+//     constructor(private ctor: ParameterlessConstructor&lt;T&gt;) {
 
 //     }
 //     getNew() {
@@ -854,17 +867,17 @@
 // }
 
 // type c = A | B;
-// type d = A & B;
+// type d = A &amp; B;
 
-// // const sss: string | number = ''
+// // const sss: string | number = &#x27;&#x27;
 // const x:c = {
 //    x: 1,
-//    y: '2'
+//    y: &#x27;2&#x27;
 // }
 
 // const y:d = {
 //     x: 1,
-//     y: ''
+//     y: &#x27;&#x27;
 //  }
 
 //  interface M {
@@ -877,20 +890,20 @@
 //  }
 
 //  type o = M | N;
-//  type p = M & N;
+//  type p = M &amp; N;
 
 //  const r:o = {
-//     a: '',
+//     a: &#x27;&#x27;,
 //     b: 1
 //  }
 
 //  const s:p = {
-//      a: '',
+//      a: &#x27;&#x27;,
 //      b: 44
 //  }
 
 // const obj = {
-//   name: "yj",
+//   name: &quot;yj&quot;,
 //   getName() {
 //     return this.name // 可以自动推导为{ name:string, getName():string}类型
 //   },
@@ -898,15 +911,15 @@
 // obj.getName() // string类型
 
 // const obj2 = {
-//   name: "yj",
-//   getName: () => {
+//   name: &quot;yj&quot;,
+//   getName: () =&gt; {
 //     return this.name // check 报错，这里的this指向的是window
 //   },
 // }
 // obj2.getName() // 运行时报错
 
 // const obj = {
-//   name: "yj",
+//   name: &quot;yj&quot;,
 //   getName() {
 //     return this.name
 //   },
@@ -920,7 +933,7 @@
 //     getName(this: Obj): string
 //   }
 //   const obj: Obj = {
-//     name: "yj",
+//     name: &quot;yj&quot;,
 //     getName() {
 //       return this.name
 //     },
@@ -943,8 +956,8 @@
 //     this.setup();
 //   }
 
-//   setup = () => {
-//     console.log("parent");
+//   setup = () =&gt; {
+//     console.log(&quot;parent&quot;);
 //   };
 // }
 
@@ -953,8 +966,8 @@
 //     super();
 //   }
 
-//   setup = () => {
-//     console.log("child");
+//   setup = () =&gt; {
+//     console.log(&quot;child&quot;);
 //   };
 // }
 
@@ -1005,232 +1018,56 @@
 //   first: string;
 //   last: string
 // }
-// type Pick1<T, K>{
+// type Pick1&lt;T, K&gt;{
 //   [k in K]: T[k]
 // }
-// // type FirstLast = Pick1<Name, 'first'| 'last'>
-// // type FirstMiddle = Pick1<Name, 'first' | 'middle'> // 应该报错但没报错
+// // type FirstLast = Pick1&lt;Name, &#x27;first&#x27;| &#x27;last&#x27;&gt;
+// // type FirstMiddle = Pick1&lt;Name, &#x27;first&#x27; | &#x27;middle&#x27;&gt; // 应该报错但没报错
 
 // // 添加泛型约束
-// type Pick2<T, K extends keyof T> = {
+// type Pick2&lt;T, K extends keyof T&gt; = {
 //   [k in K]: T[K]
 // }
-// type FirstMiddle = Pick2<Name, 'first'| 'middle'> // 正确的报错了
+// type FirstMiddle = Pick2&lt;Name, &#x27;first&#x27;| &#x27;middle&#x27;&gt; // 正确的报错了
 
 
 // const pt =  { x:3,y:4}
-// const id = {name: 'point'}
+// const id = {name: &#x27;point&#x27;}
 // const namedpoint = {}
 // Object.assign(namedpoint, pt, id)
 // namedpoint.name // check error
 
 // const pt = { x:3, y: 4}
-// const id = { name: 'point'}
+// const id = { name: &#x27;point&#x27;}
 // const namedpoint = {...pt, ...id}
 // namedpoint.name // 正常
 
 
-// interface Point {
-//   _brand?: 'point',
-//   x: number,
-//   y: number
-// }
-// interface RadiusPoint{
-//   _brand?: 'radius',
-//   x: number // radius
-//   y: number // theta
-// }
-// function PointDistance(p:Point){
-//   return Math.sqrt(p.x**2 + p.y**2)
-// }
+interface Point {
+  _brand?: &#x27;point&#x27;,
+  x: number,
+  y: number
+}
+interface RadiusPoint{
+  _brand?: &#x27;radius&#x27;,
+  x: number // radius
+  y: number // theta
+}
+function PointDistance(p:Point){
+  return Math.sqrt(p.x**2 + p.y**2)
+}
 
-// let p1: Point = {
-//     x:1,
-//     y:2
-// };
-// let p2: RadiusPoint= {
-//     x:1,
-//     y:2
-// };
-// PointDistance(p1);
-// PointDistance(p2); // 正常报错
-
-
-// type Arr = readonly unknown[];
-
-// function partialCall<T extends Arr, U extends Arr, R>(
-//   f: (...args: [...T, ...U]) => R,
-//   ...headArgs: T
-// ) {
-//   return (...tailArgs: U) => f(...headArgs, ...tailArgs);
-// }
-// const foo = (x: string, y: number, z: boolean) => {
-//   console.log(x);
-//   console.log(y);
-//   console.log(z);
-// };
-
-// const f1 = partialCall(foo, '100', 111, false);
-
-// const f3 = partialCall(foo, "hello");
-// f1();
-// // f3(11,true);
-
-
-// function foo(...args: [string, number]): void {
-//   console.log(args)
-// }
-
-// function foo(arg0: string, arg1: number):void {
-//   console.log(arg0);
-//   console.log(arg1);
-// }
-
-// foo("hello",111)
-
-// type Bar = [string, number]
-// type Bar = [first: string, second: number]
-// function foo(x:Bar){
-//   console.log(x)
-//   const [first,second] = x;
-//   console.log(first)
-//   console.log(second)
-// }
-
-// foo(['str',111])
-
-// type Name = | [first:string, last: string] | [first: string,middle:string,lasr: string]
-
-// function cretePerson(...name:Name){
-//   console.log(name)
-// }
-
-// cretePerson('','')
-
-// class Square {
-//   // Previously both of these were any
-//   area;
-// // ^ = (property) Square.area: number
-//   sideLength;
-// // ^ = (property) Square.sideLength: number
-//   constructor(sideLength: number) {
-//     this.sideLength = sideLength;
-//     this.area = sideLength ** 2;
-//   }
-// }
-
-// class Square {
-//   sideLength;
-// // ^ = (property) Square.sideLength: number | undefined
-
-//   constructor(sideLength: number) {
-//     if (Math.random()) {
-//       this.sideLength = sideLength;
-//     }
-//   }
-
-//   get area() {
-//     return this.sideLength ** 2;
-// //   Object is possibly 'undefined'.
-//   }
-// }
-
-// class Square {
-//   // definite assignment assertion
-//   //        v
-//   sideLength!: number;
-//   // type annotation
-
-//   constructor(sideLength: number) {
-//     this.initialize(sideLength);
-//   }
-
-//   initialize(sideLength: number) {
-//     this.sideLength = sideLength;
-//   }
-
-//   get area() {
-//     return this.sideLength ** 2;
-//   }
-// }
-
-
-// let X = 1;
-// let Y = 2;
-
-// // let x = X && Y;
-// // let y = X || Y;
-// // let z = X ?? Y;
-
-// let x;
-// let y = X ||= Y;
-// let z = X ??= Y;
-// x &&= Y
-
-// console.log(x)
-// console.log(y)
-// console.log(z)
-
-
-// const obj = {
-//   get prop() {
-//       console.log("getter has run");
-
-//       // Replace me!
-//       return Math.random() < 0.5;
-//   },
-//   set prop(_val: boolean) {
-//       console.log("setter has run");
-//   }
-// };
-
-// function foo() {
-//   console.log("right side evaluated");
-//   return true;
-// }
-
-// console.log(obj.prop)
-
-// console.log("This one always runs the setter");
-// obj.prop = obj.prop || foo();
-
-// console.log("This one *sometimes* runs the setter");
-// obj.prop ||= foo();
-
-
-// let x = 0;
-// const obj = {
-//   get x() {
-//     console.log('getter called');
-//     return x;
-//   },
+let p1: Point = {
+    x:1,
+    y:2
+};
+let p2: RadiusPoint= {
+    x:1,
+    y:2
+};
+PointDistance(p1);
+PointDistance(p2); // 正常报错</textarea><pre id="annotations" style="display:none">[]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:52 GMT</p>
+    </body>
+  </html>
   
-//   set x(value) {
-//     console.log('setter called');
-//     x = value;
-//   }
-// };
-
-// // This always logs "setter called"
-// obj.x += 1;
-// console.log(obj.x)
-
-// // Logical operators do not call setters unnecessarily
-// // This will not log.
-// obj.x ||= 2;
-// console.log(obj.x)
-
-// But setters are called if the operator does not short circuit
-// "setter called"
-// obj.x &&= 3;
-// console.log(obj.x)
-
-
-// class XXX {
-//   private as(){
-//     this.aaaa()
-//   };
-//   private aaaa(){
-//     this.
-//   }
-// }

@@ -1,0 +1,62 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>confirm.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="negative"><td class="">src\components\ButtonGroups\confirm.tsx</td><td class="">75.00%</td><td class="">80%</td><td class="">72</td><td class="">54</td><td class="">18</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import React, { Component } from &quot;react&quot;;
+import { Modal } from &quot;antd&quot;;
+import LocaleReceiver from &quot;antd/lib/locale-provider/LocaleReceiver&quot;;
+import Locale from &quot;./locale.js&quot;;
+
+interface ISettingProps {
+    onConfirm?: any;
+    title: string; 
+    content: string;
+    locale: any;
+    children?: any;
+}
+
+export default class Confirm extends Component&lt;ISettingProps&gt; {
+    onConfirmClick(locale:any) {
+      const { onConfirm, title, content } = this.props;
+      const contextLocale = Object.assign({}, locale, this.props.locale);
+      return Modal.confirm({
+        title: title || contextLocale.title,
+        content,
+        okText: contextLocale.okText,
+        onOk: onConfirm,
+        cancelText: contextLocale.cancelText
+      });
+    }
+    renderConfirm(locale:any) {
+      let { children } = this.props;
+      return React.cloneElement(children, {
+        onClick: this.onConfirmClick.bind(this, locale)
+      });
+    }
+    render() {
+      let { children } = this.props;
+      return React.createElement(
+        LocaleReceiver,
+        {
+          componentName: &quot;ButtonGroups&quot;,
+          defaultLocale: Locale,
+          children
+        },
+        this.renderConfirm.bind(this)
+      );
+  
+    }
+  }</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:6,&quot;character&quot;:4,&quot;text&quot;:&quot;onConfirm&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:9,&quot;character&quot;:4,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:10,&quot;character&quot;:4,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:14,&quot;character&quot;:19,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:15,&quot;character&quot;:14,&quot;text&quot;:&quot;onConfirm&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:16,&quot;character&quot;:12,&quot;text&quot;:&quot;contextLocale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:16,&quot;character&quot;:46,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:16,&quot;character&quot;:65,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:18,&quot;character&quot;:24,&quot;text&quot;:&quot;contextLocale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:18,&quot;character&quot;:38,&quot;text&quot;:&quot;title&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:16,&quot;text&quot;:&quot;contextLocale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:20,&quot;character&quot;:30,&quot;text&quot;:&quot;okText&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:22,&quot;character&quot;:20,&quot;text&quot;:&quot;contextLocale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:22,&quot;character&quot;:34,&quot;text&quot;:&quot;cancelText&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:25,&quot;character&quot;:18,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:26,&quot;character&quot;:12,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:28,&quot;character&quot;:48,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\confirm.tsx&quot;,&quot;line&quot;:32,&quot;character&quot;:12,&quot;text&quot;:&quot;children&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

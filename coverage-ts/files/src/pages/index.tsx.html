@@ -1,0 +1,260 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\pages\index.tsx</td><td class="">97.40%</td><td class="">80%</td><td class="">308</td><td class="">300</td><td class="">8</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import * as React from &quot;react&quot;;
+// import { withRouter } from &quot;react-router-dom&quot;;
+import { Table, Select, Input } from &quot;antd&quot;;
+// import { compose } from &quot;recompose&quot;;
+import Ellipsis from &quot;../components/Ellipsis&quot;;
+import Button from &quot;../components/Button&quot;;
+import ButtonGroups from &quot;../components/ButtonGroups&quot;;
+import Modal from &quot;../components/Modal&quot;;
+import i18n from &quot;../i18n&quot;;
+// import i18next from &#x27;../i18next&#x27;;
+// import i18next from &#x27;i18next&#x27;;
+import { Trans } from &quot;react-i18next&quot;;
+import { withTranslation } from &quot;react-i18next&quot;;
+import { Translation } from &quot;react-i18next&quot;;
+import SuperSelect from &quot;../components/SuperSelect&quot;;
+// import hoistStatics from &#x27;hoist-non-react-statics&#x27;;
+
+const Option = Select.Option;
+console.dir(Modal);
+// console.log(i18next.t(&#x27;person.name&#x27;));
+
+// 调试generator方法打包后的代码
+function* helloGenerator() {
+  yield 1;
+  yield* hello();
+  return;
+}
+function* hello() {
+  yield 2;
+  return;
+}
+const h = helloGenerator();
+h.next();
+
+export interface Props {
+  history: any;
+}
+
+const initialState = {
+  show: false,
+  visible: false
+};
+
+type State = typeof initialState;
+
+const dataSource = [
+  {
+    key: &quot;1&quot;,
+    name: &quot;胡彦斌&quot;,
+    age: 32,
+    address: &quot;西湖区湖底公园1号&quot;
+  },
+  {
+    key: &quot;2&quot;,
+    name: &quot;胡彦祖&quot;,
+    age: 42,
+    address: &quot;西湖区湖底公园1号&quot;
+  }
+];
+
+const children:any[] = [];
+
+for (let i = 0; i &lt; 1000; i++) {
+  children.push(
+    &lt;Option value={i + &quot;aa&quot;} key={i}&gt;
+      {i}
+    &lt;/Option&gt;
+  );
+}
+
+class Index extends React.Component&lt;Props, State&gt; {
+  state: State = initialState;
+  constructor(props: any) {
+    super(props);
+  }
+  componentDidMount() {
+    console.log(i18n.t(&quot;tree&quot;, { returnObjects: true, something: &quot;gold&quot; }));
+    // console.log(i18n.t(&quot;array&quot;, { returnObjects: true }));
+  }
+  handleClick = (type: string, key: string) =&gt; {
+    console.log(type);
+    console.log(key);
+  };
+  handleChange = (type: string) =&gt; {
+    i18n.changeLanguage(type);
+    // 修改默认namespace
+    // i18next.setDefaultNamespace(&#x27;moduleC&#x27;)
+    // console.log(i18n.t(&quot;dbType&quot;, { returnObjects: true }));
+
+    // 重写t方法且指定特定language 和 namespace
+    const dict = i18n.getFixedT(&quot;dict&quot;, &quot;moduleC&quot;);
+    console.log(dict(&quot;namespace&quot;));
+
+    // 重写t方法且指定特定namespace，等价于i18n.t(&quot;moduleC:namespace&quot;)
+    const moduleC = i18n.getFixedT(null, &quot;moduleC&quot;);
+    console.log(moduleC(&quot;namespace&quot;));
+
+    // Modal.confirm({
+    //   title: &#x27;Confirm&#x27;,
+    //   content: &#x27;Bla bla ...&#x27;,
+    //   okText: &#x27;确认&#x27;,
+    //   cancelText: &#x27;取消&#x27;,
+    // });
+
+    // console.log(i18n.t(&quot;moduleC:namespace&quot;));
+  };
+  onChange = (e: any) =&gt; {
+    console.log(e);
+  };
+  onSearch = (e: any) =&gt; {
+    console.log(e);
+  };
+  render() {
+    const columns = [
+      {
+        title: i18n.t(&quot;table.name&quot;),
+        dataIndex: &quot;name&quot;,
+        key: &quot;name&quot;,
+        render: (text: string) =&gt; Ellipsis({ text })
+      },
+      {
+        title: i18n.t(&quot;table.age&quot;),
+        dataIndex: &quot;age&quot;,
+        key: &quot;age&quot;,
+        render: (text: string) =&gt; Ellipsis({ text })
+      },
+      {
+        title: i18n.t(&quot;table.address&quot;),
+        dataIndex: &quot;address&quot;,
+        key: &quot;address&quot;,
+        render: (text: string) =&gt; Ellipsis({ text })
+      }
+    ];
+    const person = {
+      name: &quot;i18n&quot;,
+      age: &quot;26&quot;,
+      sex: &quot;male&quot;
+    };
+    return (
+      &lt;React.Fragment&gt;
+        &lt;Select
+          defaultValue=&quot;zn&quot;
+          onChange={this.handleChange}
+          style={{ width: 150, float: &quot;right&quot; }}
+        &gt;
+          &lt;Option value=&quot;en&quot;&gt;English&lt;/Option&gt;
+          &lt;Option value=&quot;zn&quot;&gt;中文&lt;/Option&gt;
+          &lt;Option value=&quot;dict&quot;&gt;字典&lt;/Option&gt;
+        &lt;/Select&gt;
+        &lt;ButtonGroups
+          handleClick={this.handleClick.bind(this, &quot;type&quot;)}
+          viewMode=&quot;icon&quot;
+          showSize={2}
+          mode=&quot;ButtonMenu&quot;
+        &gt;
+          &lt;Button permission={true} actionkey=&quot;aa&quot;&gt;
+            aa
+          &lt;/Button&gt;
+          &lt;Button
+            permission={false}
+            actionkey=&quot;cc&quot;
+            confirm=&quot;cccccccccccccccc&quot;
+            tip=&quot;ccccccccccccccccc&quot;
+          &gt;
+            cc
+          &lt;/Button&gt;
+          &lt;Button permission={true} actionkey=&quot;bb&quot; icon=&quot;apple&quot;&gt;
+            bb
+          &lt;/Button&gt;
+          &lt;Button permission={true} actionkey=&quot;dd&quot;&gt;
+            dd
+          &lt;/Button&gt;
+          &lt;Button permission={true} actionkey=&quot;ee&quot;&gt;
+            ee
+          &lt;/Button&gt;
+          &lt;Button
+            permission={true}
+            actionkey=&quot;ff&quot;
+            confirm=&quot;ffffffffffffffff&quot;
+            tip=&quot;fffffffffffffff&quot;
+          &gt;
+            ff
+          &lt;/Button&gt;
+          &lt;Button permission={true} actionkey=&quot;gg&quot; disabled={true}&gt;
+            gg
+          &lt;/Button&gt;
+        &lt;/ButtonGroups&gt;
+        &lt;Modal
+          title=&quot;我是title&quot;
+          visible={this.state.visible}
+          extra={&lt;Input value=&quot;ddddd&quot; /&gt;}
+          content={&lt;div style={{ color: &quot;blue&quot; }}&gt;我是content&lt;/div&gt;}
+        /&gt;
+        &lt;Table dataSource={dataSource} columns={columns} /&gt;
+        &lt;Button
+          onClick={() =&gt; this.props.history.push(&quot;/first&quot;)}
+          type=&quot;primary&quot;
+        &gt;
+          {i18n.t(&quot;add&quot;)}
+        &lt;/Button&gt;
+        &lt;Button onClick={() =&gt; this.setState({ visible: true })} type=&quot;primary&quot;&gt;
+          {i18n.t(&quot;show&quot;)}
+        &lt;/Button&gt;
+        &lt;h1&gt;{i18n.t(&quot;Welcome to React&quot;)}&lt;/h1&gt;
+        &lt;h2&gt;{i18n.t(&quot;name&quot;, { person })}&lt;/h2&gt;
+        &lt;h1&gt;{i18n.t(&quot;aaa&quot;)}&lt;/h1&gt;
+        &lt;h1&gt;{i18n.t(&quot;nesting1&quot;, { number: &quot;$t(nesting2)&quot; })}&lt;/h1&gt;
+        &lt;h1&gt;{i18n.t(&quot;dbType&quot;, { context: &quot;1&quot; })}&lt;/h1&gt;
+        {/* 代码段内使用指定namespace */}
+        &lt;Translation ns=&quot;moduleC&quot;&gt;{t =&gt; &lt;p&gt;{t(&quot;namespace&quot;)}&lt;/p&gt;}&lt;/Translation&gt;
+        {/* 指定多个namespace，则把第一个作为默认，找不到就找不到，不去匹配后面的namespace */}
+        &lt;Translation ns={[&quot;moduleA&quot;, &quot;moduleB&quot;, &quot;moduleC&quot;]}&gt;
+          {t =&gt; &lt;p&gt;{t(&quot;namespace&quot;)}&lt;/p&gt;}
+        &lt;/Translation&gt;
+        &lt;p&gt;{i18n.t(&quot;namespace&quot;)}&lt;/p&gt;
+        &lt;Trans
+          i18nKey=&quot;welcomeUser&quot;
+          values={{ name: &quot;tomorrow&quot;, customer: &quot;yesterday&quot; }}
+        /&gt;
+        &lt;br/&gt;
+        SuperSelect:
+        &lt;SuperSelect
+          showSearch={true}
+          allowClear={true}
+          mode=&quot;multiple&quot;
+          onChange={this.onChange}
+          onSearch={this.onSearch}
+          style={{ width: &quot;300px&quot; }}
+        &gt;
+          {children}
+        &lt;/SuperSelect&gt;
+      &lt;/React.Fragment&gt;
+    );
+  }
+}
+
+// export default compose(
+//   withTranslation(),
+//   withRouter
+// )(Index);
+// export default hoistStatics(withTranslation()(Index), Index);
+export default withTranslation()(Index);
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:35,&quot;character&quot;:2,&quot;text&quot;:&quot;history&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:72,&quot;character&quot;:14,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:106,&quot;character&quot;:14,&quot;text&quot;:&quot;e&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:107,&quot;character&quot;:16,&quot;text&quot;:&quot;e&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:109,&quot;character&quot;:14,&quot;text&quot;:&quot;e&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:110,&quot;character&quot;:16,&quot;text&quot;:&quot;e&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:195,&quot;character&quot;:36,&quot;text&quot;:&quot;history&quot;},{&quot;file&quot;:&quot;src\\pages\\index.tsx&quot;,&quot;line&quot;:195,&quot;character&quot;:44,&quot;text&quot;:&quot;push&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

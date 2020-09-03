@@ -1,0 +1,237 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="negative"><td class="">src\components\ButtonGroups\index.tsx</td><td class="">70.11%</td><td class="">80%</td><td class="">261</td><td class="">183</td><td class="">78</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import React, { Component } from &quot;react&quot;
+import { Icon, Tooltip, Menu, Dropdown, Button as Btn } from &quot;antd&quot;
+import Button from &quot;../Button&quot;
+import Confirm from &#x27;./confirm&#x27;
+import &#x27;./index.less&#x27;
+
+const Group = Btn.Group
+
+interface IButtonGroupsProps {
+  handleClick?: React.MouseEventHandler&lt;HTMLElement&gt;;
+  viewMode?: any;
+  showSize?: number;
+  mode?: string;
+  locale?: any;
+  children?: any;
+}  
+
+export default class ButtonGroups extends Component&lt;IButtonGroupsProps&gt; {
+  static defaultProps:IButtonGroupsProps = {
+    showSize: 5,
+    // handleClick: function(actionkey) {},
+    handleClick(actionkey) {return actionkey},
+    viewMode: &quot;text&quot;,
+    mode: &quot;ButtonGroup&quot;
+  };
+
+  renderButtonOnly() {
+    let { children } = this.props;
+    let childrenArray = React.Children.toArray(children);
+    // let {appReducer} = this.context
+    // console.log(this.context.appReducer)
+    return childrenArray
+      .filter(it =&gt; {
+        if (it.props.permission === undefined) {
+          return true;
+        } else {
+          return it.props.permission &amp;&amp; it.props.permission === true;
+        }
+      })
+      .map((it, idx) =&gt; {
+        return this.renderReactElement(it, idx);
+      });
+  }
+
+  renderReactElement(it:any, idx:any) {
+    let { handleClick, viewMode, locale } = this.props;
+    let {
+      tip,
+      confirm,
+      confirmTitle,
+      placement,
+      icon,
+      children,
+      block,
+      actionkey,
+      disabled,
+      permission,
+      ...otherProps
+    } = it.props;
+    let iconProps = { actionkey, disabled };
+
+    // tip提示判断，判断没有tip属性时缺省显示text内容
+    tip = !!tip ? tip : children;
+
+    // 非text文字模式下，显示icon图标，无icon属性设置时，只显示文字
+    if (viewMode === &quot;icon&quot; || viewMode === &quot;both&quot;) {
+      if (!!icon) {
+        iconProps = Object.assign(iconProps, { icon });
+      }
+      if (viewMode === &quot;icon&quot;) {
+        children = !!icon ? &quot;&quot; : children;
+      }
+    }
+
+    if (confirm &amp;&amp; !disabled) {
+      return React.createElement(
+        Confirm,
+        Object.assign(
+          {},
+          {
+            locale,
+            key: idx,
+            title: confirmTitle,
+            content: confirm,
+            placement,
+            onConfirm: () =&gt; handleClick &amp;&amp; handleClick(actionkey)
+          }
+        ),
+        React.createElement(
+          Tooltip,
+          Object.assign({}, { key: idx, title: tip, icon }),
+          React.createElement(
+            Button,
+            Object.assign(iconProps, otherProps),
+            children
+          )
+        )
+      );
+    } else {
+      return React.createElement(
+        Tooltip,
+        Object.assign({}, { key: idx, title: tip, icon }),
+        React.createElement(
+          Button,
+          Object.assign(
+            iconProps,
+            otherProps,
+            !disabled
+              ? {
+                  onClick: () =&gt; handleClick &amp;&amp; handleClick(actionkey)
+                }
+              : {}
+          ),
+          children
+        )
+      );
+    }
+  }
+  // return
+
+  renderMenuReactElement(it:any, idx:any) {
+    let { tip, children } = it.props;
+    return React.createElement(
+      Tooltip,
+      Object.assign({}, { key: idx, title: tip }),
+      React.cloneElement(it, Object.assign({}, it.props), children)
+    );
+  }
+
+  renderMixButtonMenu() {
+    let { children, showSize } = this.props;
+    let childrenArray = React.Children.toArray(children);
+
+    let endArray = childrenArray.splice(showSize || 5);
+
+    return (
+      &lt;div&gt;
+        {childrenArray
+          // .filter((it)=&gt;{
+          //   console.log(it.props.permission)
+          //   return it.props.permission==true
+          // })
+          .map((it, idx) =&gt; {
+            return this.renderReactElement(it, idx);
+          })
+        }
+        &lt;Dropdown overlay={this.renderMenuItem(endArray)}&gt;
+          &lt;Button&gt;
+            &lt;Icon type=&quot;ellipsis&quot; /&gt;
+          &lt;/Button&gt;
+        &lt;/Dropdown&gt;
+      &lt;/div&gt;
+    );
+  }
+
+  renderMenuItem(itemList:any) {
+    let { handleClick } = this.props;
+    return (
+      &lt;Menu onClick={()=&gt;handleClick}&gt;
+        {itemList.map((it:any, idx:any) =&gt; {
+          return (
+            &lt;Menu.Item key={idx}&gt;
+              {this.renderMenuReactElement(it, idx)}
+            &lt;/Menu.Item&gt;
+          );
+        })}
+      &lt;/Menu&gt;
+    );
+  }
+
+  renderChildren() {
+    let { mode } = this.props;
+
+    return (
+      &lt;Group&gt;
+        {mode === &quot;ButtonGroup&quot;
+          ? this.renderButtonOnly()
+          : this.renderMixButtonMenu()}
+      &lt;/Group&gt;
+    );
+  }
+
+  render() {
+    return &lt;div className=&quot;button-groups&quot;&gt;{this.renderChildren()}&lt;/div&gt;;
+  }
+}
+
+/*
+ * showSize:超过收起的数目
+ * handleClick : 点击事件（需子元素以actionKey区分）
+ * viewMode : 按钮的展示模式，仅文字，仅图片，文字+图片
+ * 子元素如需confirm确认 子元素自身添加confirm 属性 value为提醒文字
+ * tip 为元素上移显示文字
+ */
+// ButtonGroups.propTypes = {
+//   /**
+//    超过收起的数目
+//   **/
+//   showSize: PropTypes.number,
+//   /**
+//    点击事件（需子元素以actionKey区分）
+//   **/
+//   handleClick: PropTypes.func,
+//   /**
+//    按钮的展示模式，仅文字，仅图片，文字+图片
+//   **/
+//   viewMode: PropTypes.oneOf([&quot;text&quot;, &quot;icon&quot;, &quot;both&quot;]),
+//   /**
+//    显示模式 ButtonGroup 和 ButtonMenu
+//   **/
+//   mode: PropTypes.oneOf([&quot;ButtonGroup&quot;, &quot;ButtonMenu&quot;]),
+//   locale: PropTypes.object
+// };
+// ButtonGroups.defaultProps = {
+//   showSize: 5,
+//   handleClick: function(actionkey) {},
+//   viewMode: &quot;text&quot;,
+//   mode: &quot;ButtonGroup&quot;
+// };
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:10,&quot;character&quot;:2,&quot;text&quot;:&quot;viewMode&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:13,&quot;character&quot;:2,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:14,&quot;character&quot;:2,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:27,&quot;character&quot;:10,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:44,&quot;character&quot;:21,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:44,&quot;character&quot;:29,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:45,&quot;character&quot;:23,&quot;text&quot;:&quot;viewMode&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:45,&quot;character&quot;:33,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:47,&quot;character&quot;:6,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:48,&quot;character&quot;:6,&quot;text&quot;:&quot;confirm&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:49,&quot;character&quot;:6,&quot;text&quot;:&quot;confirmTitle&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:50,&quot;character&quot;:6,&quot;text&quot;:&quot;placement&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:51,&quot;character&quot;:6,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:52,&quot;character&quot;:6,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:53,&quot;character&quot;:6,&quot;text&quot;:&quot;block&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:54,&quot;character&quot;:6,&quot;text&quot;:&quot;actionkey&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:55,&quot;character&quot;:6,&quot;text&quot;:&quot;disabled&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:56,&quot;character&quot;:6,&quot;text&quot;:&quot;permission&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:57,&quot;character&quot;:9,&quot;text&quot;:&quot;otherProps&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:58,&quot;character&quot;:8,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:58,&quot;character&quot;:11,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:59,&quot;character&quot;:22,&quot;text&quot;:&quot;actionkey&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:59,&quot;character&quot;:33,&quot;text&quot;:&quot;disabled&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:62,&quot;character&quot;:4,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:62,&quot;character&quot;:12,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:62,&quot;character&quot;:18,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:62,&quot;character&quot;:24,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:65,&quot;character&quot;:8,&quot;text&quot;:&quot;viewMode&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:65,&quot;character&quot;:31,&quot;text&quot;:&quot;viewMode&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:66,&quot;character&quot;:12,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:67,&quot;character&quot;:47,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:69,&quot;character&quot;:10,&quot;text&quot;:&quot;viewMode&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:70,&quot;character&quot;:8,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:70,&quot;character&quot;:21,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:70,&quot;character&quot;:33,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:74,&quot;character&quot;:8,&quot;text&quot;:&quot;confirm&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:74,&quot;character&quot;:20,&quot;text&quot;:&quot;disabled&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:80,&quot;character&quot;:12,&quot;text&quot;:&quot;locale&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:81,&quot;character&quot;:12,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:81,&quot;character&quot;:17,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:82,&quot;character&quot;:12,&quot;text&quot;:&quot;title&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:82,&quot;character&quot;:19,&quot;text&quot;:&quot;confirmTitle&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:83,&quot;character&quot;:12,&quot;text&quot;:&quot;content&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:83,&quot;character&quot;:21,&quot;text&quot;:&quot;confirm&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:84,&quot;character&quot;:12,&quot;text&quot;:&quot;placement&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:90,&quot;character&quot;:30,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:90,&quot;character&quot;:35,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:90,&quot;character&quot;:40,&quot;text&quot;:&quot;title&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:90,&quot;character&quot;:47,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:90,&quot;character&quot;:52,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:93,&quot;character&quot;:37,&quot;text&quot;:&quot;otherProps&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:101,&quot;character&quot;:28,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:101,&quot;character&quot;:33,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:101,&quot;character&quot;:38,&quot;text&quot;:&quot;title&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:101,&quot;character&quot;:45,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:101,&quot;character&quot;:50,&quot;text&quot;:&quot;icon&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:106,&quot;character&quot;:12,&quot;text&quot;:&quot;otherProps&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:107,&quot;character&quot;:13,&quot;text&quot;:&quot;disabled&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:120,&quot;character&quot;:25,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:120,&quot;character&quot;:33,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:121,&quot;character&quot;:10,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:121,&quot;character&quot;:15,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:121,&quot;character&quot;:28,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:121,&quot;character&quot;:31,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:124,&quot;character&quot;:26,&quot;text&quot;:&quot;key&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:124,&quot;character&quot;:31,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:124,&quot;character&quot;:36,&quot;text&quot;:&quot;title&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:124,&quot;character&quot;:43,&quot;text&quot;:&quot;tip&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:125,&quot;character&quot;:47,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:125,&quot;character&quot;:50,&quot;text&quot;:&quot;props&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:130,&quot;character&quot;:10,&quot;text&quot;:&quot;children&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:155,&quot;character&quot;:17,&quot;text&quot;:&quot;itemList&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:159,&quot;character&quot;:9,&quot;text&quot;:&quot;itemList&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:159,&quot;character&quot;:18,&quot;text&quot;:&quot;map&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:159,&quot;character&quot;:23,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:159,&quot;character&quot;:31,&quot;text&quot;:&quot;idx&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:162,&quot;character&quot;:43,&quot;text&quot;:&quot;it&quot;},{&quot;file&quot;:&quot;src\\components\\ButtonGroups\\index.tsx&quot;,&quot;line&quot;:162,&quot;character&quot;:47,&quot;text&quot;:&quot;idx&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

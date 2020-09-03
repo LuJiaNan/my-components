@@ -1,0 +1,94 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\components\MyStep\ClassStep\index.tsx</td><td class="">85.59%</td><td class="">80%</td><td class="">118</td><td class="">101</td><td class="">17</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import React, { Component } from &quot;react&quot;;
+import { Steps } from &quot;antd&quot;;
+import StepProps, { defaultStepProps } from &quot;../index&quot;;
+
+const initialState = {
+  currentIndex: 0,
+  step: 1
+};
+
+type State = typeof initialState;
+
+const ref: any = React.createRef();
+
+export default class Step extends Component&lt;StepProps, State&gt; {
+  static defaultProps = defaultStepProps;
+
+  state: State = initialState;
+
+  componentWillMount() {
+    const currentStepRoute = this.props.location.pathname.slice(1);
+
+    let currentStepNum = 1;
+    this.props.steps.map((v, index) =&gt; {
+      if (currentStepRoute.indexOf(v.path) &gt; -1) {
+        currentStepNum = index + 1;
+      }
+    });
+
+    this.setState({
+      currentIndex: currentStepNum - 1,
+      step: currentStepNum
+    });
+  }
+
+  goRoutes = (step: number) =&gt; {
+    const {
+      props: { steps }
+    } = this;
+    this.props.history.push(steps[step - 1].path);
+    this.setState({
+      currentIndex: step - 1,
+      step
+    });
+  };
+
+  getCurrentStep = () =&gt; {
+    return this.state.step;
+  };
+
+  render() {
+    const { steps } = this.props;
+    const { currentIndex } = this.state;
+    const renderDom = steps[currentIndex];
+    const goRoutes = this.goRoutes;
+    const getCurrentStep = this.getCurrentStep;
+    return (
+      &lt;React.Fragment&gt;
+        &lt;Steps current={currentIndex}&gt;
+          {steps.map((item: { text: string; description: string }) =&gt; (
+            &lt;Steps.Step
+              key={item.text}
+              title={item.text}
+              description={item.description}
+            /&gt;
+          ))}
+        &lt;/Steps&gt;
+        {React.createElement(renderDom.component, {
+          ...this.props,
+          ref,
+          goRoutes,
+          getCurrentStep
+        })}
+      &lt;/React.Fragment&gt;
+    );
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:11,&quot;character&quot;:6,&quot;text&quot;:&quot;ref&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:19,&quot;character&quot;:10,&quot;text&quot;:&quot;currentStepRoute&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:19,&quot;character&quot;:40,&quot;text&quot;:&quot;location&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:19,&quot;character&quot;:49,&quot;text&quot;:&quot;pathname&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:19,&quot;character&quot;:58,&quot;text&quot;:&quot;slice&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:22,&quot;character&quot;:26,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:23,&quot;character&quot;:10,&quot;text&quot;:&quot;currentStepRoute&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:23,&quot;character&quot;:27,&quot;text&quot;:&quot;indexOf&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:23,&quot;character&quot;:35,&quot;text&quot;:&quot;v&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:23,&quot;character&quot;:37,&quot;text&quot;:&quot;path&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:38,&quot;character&quot;:15,&quot;text&quot;:&quot;history&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:38,&quot;character&quot;:23,&quot;text&quot;:&quot;push&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:38,&quot;character&quot;:44,&quot;text&quot;:&quot;path&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:52,&quot;character&quot;:10,&quot;text&quot;:&quot;renderDom&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:66,&quot;character&quot;:29,&quot;text&quot;:&quot;renderDom&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:66,&quot;character&quot;:39,&quot;text&quot;:&quot;component&quot;},{&quot;file&quot;:&quot;src\\components\\MyStep\\ClassStep\\index.tsx&quot;,&quot;line&quot;:68,&quot;character&quot;:10,&quot;text&quot;:&quot;ref&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  

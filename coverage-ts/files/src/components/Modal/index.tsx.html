@@ -1,0 +1,82 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>index.tsx</title>
+      <link href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" type="text/css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/mode/javascript/javascript.min.js" type="text/javascript" charset="utf-8"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.52.2/codemirror.min.css" type="text/css" rel="stylesheet">
+<script src="..\..\..\..\assets\source-file.js" type="text/javascript" charset="utf-8"></script>
+<link href="..\..\..\..\assets\source-file.css" type="text/css" rel="stylesheet">
+    </head>
+    <body>
+    <div style="margin-top:3em" class="ui container"><h1 class="ui header"><a href="..\..\..\..\index.html">TypeScript coverage report</a></h1><table style="margin-top:2em" class="ui celled table"><thead class=""><tr class=""><th class="">Filename</th><th class="">Percent</th><th class="">Threshold</th><th class="">Total</th><th class="">Covered</th><th class="">Uncovered</th></tr></thead><tbody class=""><tr class="positive"><td class="">src\components\Modal\index.tsx</td><td class="">84.34%</td><td class="">80%</td><td class="">83</td><td class="">70</td><td class="">13</td></tr></tbody></table><textarea id="editor" readonly="" style="margin-top:3em">import * as React from &quot;react&quot;;
+import { Modal } from &quot;antd&quot;;
+import ExtraModaltitle from &quot;../ExtraModaltitle&quot;;
+import { ModalProps, ModalFuncProps } from &#x27;antd/lib/modal&#x27;; 
+
+interface MyModalProps extends ModalProps {
+  [propName: string]: any;
+  content?: any;
+  titile?: any;
+}
+
+interface MyModalFuncProps extends ModalFuncProps {
+  confirm?:any;
+}
+
+
+const initialState = {
+  visible: false
+};
+
+type State = typeof initialState;
+
+export default class MyModal extends React.Component&lt;MyModalProps &amp; MyModalFuncProps, State&gt; {
+// export default class MyModal extends Modal implements MyModalProps,MyModalFuncProps{
+  defaultProps = {
+    title: &quot;弹出框&quot;,
+    content: &quot;&quot;
+  };
+
+  state: State = initialState;
+
+  componentWillReceiveProps(nextProps: any) {
+    if (nextProps.visible !== this.state.visible) {
+      this.setState({
+        visible: nextProps.visible
+      });
+    }
+  }
+  onOk = () =&gt; {
+    this.setState({
+      visible: false
+    });
+  };
+  onCancel = () =&gt; {
+    this.setState({
+      visible: false
+    });
+  };
+  render() {
+    const { title, content, extra, onOk, onCancel } = this.props;
+    const { visible } = this.state;
+    return (
+      &lt;Modal
+        {...this.props}
+        visible={visible}
+        onOk={onOk || this.onOk}
+        onCancel={onCancel || this.onCancel}
+        title={extra ? &lt;ExtraModaltitle text={title} extra={extra} /&gt; : title}
+      &gt;
+        {content}
+      &lt;/Modal&gt;
+    );
+  }
+}
+</textarea><pre id="annotations" style="display:none">[{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:7,&quot;character&quot;:2,&quot;text&quot;:&quot;content&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:8,&quot;character&quot;:2,&quot;text&quot;:&quot;titile&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:12,&quot;character&quot;:2,&quot;text&quot;:&quot;confirm&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:31,&quot;character&quot;:28,&quot;text&quot;:&quot;nextProps&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:32,&quot;character&quot;:8,&quot;text&quot;:&quot;nextProps&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:32,&quot;character&quot;:18,&quot;text&quot;:&quot;visible&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:34,&quot;character&quot;:17,&quot;text&quot;:&quot;nextProps&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:34,&quot;character&quot;:27,&quot;text&quot;:&quot;visible&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:49,&quot;character&quot;:19,&quot;text&quot;:&quot;content&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:49,&quot;character&quot;:28,&quot;text&quot;:&quot;extra&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:57,&quot;character&quot;:15,&quot;text&quot;:&quot;extra&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:57,&quot;character&quot;:53,&quot;text&quot;:&quot;extra&quot;},{&quot;file&quot;:&quot;src\\components\\Modal\\index.tsx&quot;,&quot;line&quot;:57,&quot;character&quot;:60,&quot;text&quot;:&quot;extra&quot;}]</pre></div>
+    <p class="footer-text">TypeScript Coverage Report generated by <a href="https://github.com/plantain-00/type-coverage">type-coverage</a> and <a href="https://github.com/alexcanessa/typescript-coverage-report">typescript-coverage-report</a> at Mon, 10 Aug 2020 02:25:51 GMT</p>
+    </body>
+  </html>
+  
