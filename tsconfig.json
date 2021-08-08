@@ -7,8 +7,9 @@
       "es6",
       "dom"
     ],
+    "baseUrl": ".",
     "declaration": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
